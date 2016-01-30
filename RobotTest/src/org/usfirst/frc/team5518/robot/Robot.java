@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
     String autoSelected;
     SendableChooser chooser;
     
-    Ultrasonic ultra = new Ultrasonic (1,1);
+    Ultrasonic ultra = new Ultrasonic (0,1);
 	
     /**
      * This function is run when the robot is first started up and should be
