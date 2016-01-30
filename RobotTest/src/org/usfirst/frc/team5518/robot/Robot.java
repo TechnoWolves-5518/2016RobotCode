@@ -28,8 +28,10 @@
 package org.usfirst.frc.team5518.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -50,6 +52,8 @@ public class Robot extends IterativeRobot {
     final String customAuto = "My Auto";
     String autoSelected;
     SendableChooser chooser;
+    
+    Ultrasonic ultra = new Ultrasonic (1,1);
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -65,6 +69,8 @@ public class Robot extends IterativeRobot {
         mVictor = new Victor(4);  // init new Victor at PWM Port 4
         mVictor.enableDeadbandElimination(true); // eliminate deadband
         mVictor.setExpiration(Victor.DEFAULT_SAFETY_EXPIRATION); // set PWM timeout of Victor
+        
+        ultra.setAutomaticMode(true);
         
     }
     
@@ -96,6 +102,7 @@ public class Robot extends IterativeRobot {
     	//Put default auto code here
             break;
     	}
+    	
     }
 
     /**
@@ -111,7 +118,12 @@ public class Robot extends IterativeRobot {
     	
     	// set Victor's values to match input axis 0
     	mVictor.set(stick.getRawAxis(0));
+    	SmartDashboard.putString("DB/String 0", ultrasonicSample());
     	    
+    }
+    
+    public String ultrasonicSample() {
+    	return Double.toString(ultra.getRangeInches());	
     }
     
 }
