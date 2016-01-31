@@ -2,3 +2,7 @@
 RobotTest/sysProps.xml
 *.jar
 *.jar
+*.class
+RobotTest/dist/FRCUserProgram.jar
+*.jar
+RobotTest/sysProps.xml

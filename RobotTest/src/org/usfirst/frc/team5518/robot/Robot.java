@@ -27,12 +27,16 @@
 
 package org.usfirst.frc.team5518.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -53,7 +57,8 @@ public class Robot extends IterativeRobot {
     String autoSelected;
     SendableChooser chooser;
     
-    Ultrasonic ultra = new Ultrasonic (0,1);
+    Ultrasonic mUltra;
+    Encoder mEncoder;
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -70,8 +75,15 @@ public class Robot extends IterativeRobot {
         mVictor.enableDeadbandElimination(true); // eliminate deadband
         mVictor.setExpiration(Victor.DEFAULT_SAFETY_EXPIRATION); // set PWM timeout of Victor
         
-        ultra.setAutomaticMode(true);
+        mUltra = new Ultrasonic (0,1);
+        mUltra.setAutomaticMode(true);
         
+        mEncoder = new Encoder(9, 8, false, EncodingType.k4X);
+        
+        LiveWindow.addActuator("DriveTrain", "victor", mVictor);
+        LiveWindow.addSensor("Sensor", "ultrasonic", mUltra);
+        LiveWindow.addSensor("Sensor", "encoder", mEncoder);
+    	
     }
     
 	/**
@@ -116,14 +128,17 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     	
+    	LiveWindow.run();
+    	
+    	String inches = Double.toString(mUltra.getRangeInches());
+    	String mm = Double.toString(mUltra.getRangeMM());
+    	
     	// set Victor's values to match input axis 0
     	mVictor.set(stick.getRawAxis(0));
-    	SmartDashboard.putString("DB/String 0", ultrasonicSample());
+    	
+    	SmartDashboard.putString("Ultrasonic SR04 in: ", inches);
+    	SmartDashboard.putString("Ultrasonic SR04 mm: ", mm);
     	    
-    }
-    
-    public String ultrasonicSample() {
-    	return Double.toString(ultra.getRangeInches());	
     }
     
 }
