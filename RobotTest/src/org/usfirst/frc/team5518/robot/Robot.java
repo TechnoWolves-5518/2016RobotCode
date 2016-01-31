@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -57,8 +58,16 @@ public class Robot extends IterativeRobot {
     String autoSelected;
     SendableChooser chooser;
     
-    Ultrasonic mUltra;
-    Encoder mEncoder;
+    NetworkTable mTable;
+    
+    Ultrasonic mUltra; // global variable for SR04 ultrasonic
+    Encoder mEncoder; // variable for encoder
+    
+    
+    public Robot() {
+    	// get published table from GRIP for Vision Tracking
+    	mTable = NetworkTable.getTable("GRIP/myCountoursReport");
+    }
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -75,14 +84,32 @@ public class Robot extends IterativeRobot {
         mVictor.enableDeadbandElimination(true); // eliminate deadband
         mVictor.setExpiration(Victor.DEFAULT_SAFETY_EXPIRATION); // set PWM timeout of Victor
         
-        mUltra = new Ultrasonic (0,1);
-        mUltra.setAutomaticMode(true);
+        mUltra = new Ultrasonic (0,1); // construct Ultrasonic object with DIO port #0 (trig) & port #1 (echo)
+        mUltra.setAutomaticMode(true); // set so ultrasonic sensors fire round robin (?)
         
-        mEncoder = new Encoder(9, 8, false, EncodingType.k4X);
+        // construct Encoder with DIO port #8 (channel A) & port #9 (channel B)
+        mEncoder = new Encoder(8, 9, false, EncodingType.k4X);
         
+        // add sensors and other components to the LiveWindow
         LiveWindow.addActuator("DriveTrain", "victor", mVictor);
         LiveWindow.addSensor("Sensor", "ultrasonic", mUltra);
         LiveWindow.addSensor("Sensor", "encoder", mEncoder);
+        
+        // create empty array to store values in
+        double[] defaultValue = new double[0];
+        while (true) {
+        	// get the location array of specified contour(s)
+        	double[] areas = mTable.getNumberArray("area", defaultValue);
+        	System.out.println("areas: ");
+        	
+        	// iterate over location of specified contour(s)
+        	for (double area : areas) {
+        		System.out.print("area: " + area); 
+        	}
+        	
+        	System.out.println(); // output empty line to Riolog
+        	Timer.delay(1); // wait 1 sec before looping again
+        }
     	
     }
     
@@ -128,14 +155,17 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     	
+    	// run LiveWindow (outputs values for test purposes)
     	LiveWindow.run();
     	
+    	// get the value of the ultrasonic sensor in inches and mm
     	String inches = Double.toString(mUltra.getRangeInches());
     	String mm = Double.toString(mUltra.getRangeMM());
     	
     	// set Victor's values to match input axis 0
     	mVictor.set(stick.getRawAxis(0));
     	
+    	// log the values
     	SmartDashboard.putString("Ultrasonic SR04 in: ", inches);
     	SmartDashboard.putString("Ultrasonic SR04 mm: ", mm);
     	    
