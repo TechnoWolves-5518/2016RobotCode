@@ -95,22 +95,6 @@ public class Robot extends IterativeRobot {
         LiveWindow.addSensor("Sensor", "ultrasonic", mUltra);
         LiveWindow.addSensor("Sensor", "encoder", mEncoder);
         
-        // create empty array to store values in
-        double[] defaultValue = new double[0];
-        while (true) {
-        	// get the location array of specified contour(s)
-        	double[] areas = mTable.getNumberArray("area", defaultValue);
-        	System.out.println("areas: ");
-        	
-        	// iterate over location of specified contour(s)
-        	for (double area : areas) {
-        		System.out.print("area: " + area); 
-        	}
-        	
-        	System.out.println(); // output empty line to Riolog
-        	Timer.delay(1); // wait 1 sec before looping again
-        }
-    	
     }
     
 	/**
@@ -169,6 +153,24 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putString("Ultrasonic SR04 in: ", inches);
     	SmartDashboard.putString("Ultrasonic SR04 mm: ", mm);
     	    
+    }
+    
+    /**
+     * This function gets the values from NetworkTable published by GRIP (tool for Vision Tracking)
+     * and gets the location of the specified contour(s) to output to the Riolog (Eclipse -> Window -> Show View)
+     */
+    private void getGripValues() {
+        double[] defaultValue = new double[0]; // create empty array to store values in
+    	double[] areas = mTable.getNumberArray("area", defaultValue); // get the location array of specified contour(s)
+    	System.out.println("areas: "); // output to Riolog
+   
+    	// iterate over location of specified contour(s)
+    	for (double area : areas) {
+    		System.out.print("area: " + area); 
+    	}
+    	
+    	System.out.println(); // output empty line to Riolog
+    	Timer.delay(1); // wait 1 sec before looping again
     }
     
 }
