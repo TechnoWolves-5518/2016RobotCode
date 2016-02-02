@@ -27,6 +27,8 @@
 
 package org.usfirst.frc.team5518.robot;
 
+import java.io.IOException;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
@@ -49,6 +51,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	private final static String[] GRIP_ARGS = new String[] {
+	        "/usr/local/frc/JRE/bin/java", "-jar",
+	        "/home/lvuser/grip.jar", "/home/lvuser/project.grip" };
+	private final NetworkTable grip = NetworkTable.getTable("grip");
 	
 	Joystick stick = new Joystick(0); // init input device 0
 	Victor mVictor; // variable for Victor
@@ -94,6 +101,12 @@ public class Robot extends IterativeRobot {
         LiveWindow.addActuator("DriveTrain", "victor", mVictor);
         LiveWindow.addSensor("Sensor", "ultrasonic", mUltra);
         LiveWindow.addSensor("Sensor", "encoder", mEncoder);
+        
+        try {
+        	Runtime.getRuntime().exec(GRIP_ARGS);
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
         
     }
     
@@ -152,6 +165,9 @@ public class Robot extends IterativeRobot {
     	// log the values
     	SmartDashboard.putString("Ultrasonic SR04 in: ", inches);
     	SmartDashboard.putString("Ultrasonic SR04 mm: ", mm);
+    	
+    	// log GRIP vision tracking values
+    	getGripValues();
     	    
     }
     
@@ -160,7 +176,13 @@ public class Robot extends IterativeRobot {
      * and gets the location of the specified contour(s) to output to the Riolog (Eclipse -> Window -> Show View)
      */
     private void getGripValues() {
-        double[] defaultValue = new double[0]; // create empty array to store values in
+    	
+    	/* Get published values from GRIP using NetworkTables */
+        for (double area : grip.getNumberArray("myCountoursReport/area", new double[0])) {
+            System.out.println("Got contour with area = " + area);
+        }
+    	
+        /*double[] defaultValue = new double[0]; // create empty array to store values in
     	double[] areas = mTable.getNumberArray("area", defaultValue); // get the location array of specified contour(s)
     	System.out.println("areas: "); // output to Riolog
    
@@ -169,8 +191,8 @@ public class Robot extends IterativeRobot {
     		System.out.print("area: " + area); 
     	}
     	
-    	System.out.println(); // output empty line to Riolog
-    	Timer.delay(1); // wait 1 sec before looping again
+    	System.out.println(); // output empty line to Riolog*/
+    	
     }
     
 }
