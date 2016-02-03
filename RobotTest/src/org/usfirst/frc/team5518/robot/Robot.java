@@ -1,4 +1,4 @@
-b/** The MIT License (MIT)
+/** The MIT License (MIT)
 *
 *
 * Copyright (c) 2016 Techno Wolves
