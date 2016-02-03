@@ -1,4 +1,4 @@
-/** The MIT License (MIT)
+b/** The MIT License (MIT)
 *
 *
 * Copyright (c) 2016 Techno Wolves
@@ -71,6 +71,7 @@ public class Robot extends IterativeRobot {
     Encoder mEncoder; // variable for encoder
     
     
+    
     public Robot() {
     	// get published table from GRIP for Vision Tracking
     	mTable = NetworkTable.getTable("GRIP/myCountoursReport");
@@ -101,6 +102,13 @@ public class Robot extends IterativeRobot {
         LiveWindow.addActuator("DriveTrain", "victor", mVictor);
         LiveWindow.addSensor("Sensor", "ultrasonic", mUltra);
         LiveWindow.addSensor("Sensor", "encoder", mEncoder);
+        
+        Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+        sampleEncoder.setMaxPeriod(.1);
+        sampleEncoder.setMinRate(10);
+        sampleEncoder.setDistancePerPulse(5);
+        sampleEncoder.setReverseDirection(true);
+        sampleEncoder.setSamplesToAverage(7);
         
         try {
         	Runtime.getRuntime().exec(GRIP_ARGS);
@@ -145,6 +153,15 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+    	int count = sampleEncoder.get();
+    	double distance = sampleEncoder.getRaw();
+    	double distance1 = sampleEncoder.getDistance();
+    	@SuppressWarnings("deprecation")
+		double period = sampleEncoder.getPeriod();
+    	double rate = sampleEncoder.getRate();
+    	boolean direction = sampleEncoder.getDirection();
+    	boolean stopped = sampleEncoder.getStopped();
     }
     
     /**
@@ -168,6 +185,9 @@ public class Robot extends IterativeRobot {
     	
     	// log GRIP vision tracking values
     	getGripValues();
+    	
+    	Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+    	sampleEncoder.reset(); 
     	    
     }
     
@@ -194,5 +214,5 @@ public class Robot extends IterativeRobot {
     	System.out.println(); // output empty line to Riolog*/
     	
     }
-    
+ 
 }
