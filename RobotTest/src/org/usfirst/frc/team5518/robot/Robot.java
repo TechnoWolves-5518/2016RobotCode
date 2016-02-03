@@ -137,6 +137,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	RobotDrive drive = new RobotDrive(0,1,2,3) //4 motor drive
     	switch(autoSelected) {
     	case customAuto:
         //Put custom auto code here   
@@ -146,6 +147,7 @@ public class Robot extends IterativeRobot {
     	//Put default auto code here
             break;
     	}
+    	
     	
     }
 
