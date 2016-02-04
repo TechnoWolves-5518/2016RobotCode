@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
@@ -110,6 +111,15 @@ public class Robot extends IterativeRobot {
         sampleEncoder.setReverseDirection(true);
         sampleEncoder.setSamplesToAverage(7);
         
+        Compressor c = new Compressor(0);
+        c.setClosedLoopControl(true);
+        c.setClosedLoopControl(false);
+        
+        boolean enabled = c.enabled();
+        boolean pressureSwitch = c.getPressureSwitchValue();
+        float current = c.getCompressorCurrent();
+
+        
         try {
         	Runtime.getRuntime().exec(GRIP_ARGS);
         } catch (IOException e) {
@@ -137,7 +147,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	RobotDrive drive = new RobotDrive(0,1,2,3) //4 motor drive
+    	RobotDrive drive = new RobotDrive(0,1,2,3); //4 motor drive
     	switch(autoSelected) {
     	case customAuto:
         //Put custom auto code here   
