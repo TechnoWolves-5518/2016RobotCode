@@ -30,6 +30,7 @@ package org.usfirst.frc.team5518.robot;
 import java.io.IOException;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -97,7 +98,7 @@ public class Robot extends IterativeRobot {
         mUltra.setAutomaticMode(true); // set so ultrasonic sensors fire round robin (?)
         
         // construct Encoder with DIO port #8 (channel A) & port #9 (channel B)
-        mEncoder = new Encoder(8, 9, false, EncodingType.k4X);
+        mEncoder = new Encoder(8, 9, false, EncodingType.k4X); //Encoder object created
         
         // add sensors and other components to the LiveWindow
         LiveWindow.addActuator("DriveTrain", "victor", mVictor);
@@ -105,6 +106,7 @@ public class Robot extends IterativeRobot {
         LiveWindow.addSensor("Sensor", "encoder", mEncoder);
         
         Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+        //Setting encoder parameters
         sampleEncoder.setMaxPeriod(.1);
         sampleEncoder.setMinRate(10);
         sampleEncoder.setDistancePerPulse(5);
@@ -166,6 +168,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+    	//Getting encoder values
     	int count = sampleEncoder.get();
     	double distance = sampleEncoder.getRaw();
     	double distance1 = sampleEncoder.getDistance();
@@ -200,6 +203,7 @@ public class Robot extends IterativeRobot {
     	
     	Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
     	sampleEncoder.reset(); 
+    	//Starting, Stopping and Resetting Encoders
     	    
     }
     
