@@ -113,10 +113,11 @@ public class Robot extends IterativeRobot {
         sampleEncoder.setReverseDirection(true);
         sampleEncoder.setSamplesToAverage(7);
         
+        //Starting and stopping a compressor
         Compressor c = new Compressor(0);
         c.setClosedLoopControl(true);
         c.setClosedLoopControl(false);
-        
+        //Compressor status
         boolean enabled = c.enabled();
         boolean pressureSwitch = c.getPressureSwitchValue();
         float current = c.getCompressorCurrent();
