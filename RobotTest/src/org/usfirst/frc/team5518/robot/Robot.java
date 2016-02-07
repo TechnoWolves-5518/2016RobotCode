@@ -29,6 +29,8 @@ package org.usfirst.frc.team5518.robot;
 
 import java.io.IOException;
 
+import edu.wpi.first.wpilibj.ADXL362;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -40,6 +42,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -67,12 +70,14 @@ public class Robot extends IterativeRobot {
     String autoSelected;
     SendableChooser chooser;
     
-    NetworkTable mTable;
+    NetworkTable mTable; // variable for NetworkTables
+    RobotDrive mDrive; // variable for driving
     
     Ultrasonic mUltra; // global variable for SR04 ultrasonic
     Encoder mEncoder; // variable for encoder
     
-    
+    ADXRS450_Gyro mGyro; // ADXRS450450 SPI gyroscope
+    ADXL362 mAccel; // ADXL362 SPI accelorometer
     
     public Robot() {
     	// get published table from GRIP for Vision Tracking
@@ -100,34 +105,47 @@ public class Robot extends IterativeRobot {
         // construct Encoder with DIO port #8 (channel A) & port #9 (channel B)
         mEncoder = new Encoder(8, 9, false, EncodingType.k4X); //Encoder object created
         
+        /* front left motor 0
+         * rear left motor 1
+         * front right motor 2
+         * rear right motor 3
+         */
+        mDrive = new RobotDrive(0,1,2,3);
+        
+        // instantiate gyroscope & accelerometer
+    	mGyro = new ADXRS450_Gyro();
+    	mAccel = new ADXL362(Range.k8G);
+        
         // add sensors and other components to the LiveWindow
         LiveWindow.addActuator("DriveTrain", "victor", mVictor);
         LiveWindow.addSensor("Sensor", "ultrasonic", mUltra);
         LiveWindow.addSensor("Sensor", "encoder", mEncoder);
+        LiveWindow.addSensor("Sensor", "gyro", mGyro);
+        LiveWindow.addSensor("Sensor", "accel", mAccel);
         
-        Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+        /*Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
         //Setting encoder parameters
         sampleEncoder.setMaxPeriod(.1);
         sampleEncoder.setMinRate(10);
         sampleEncoder.setDistancePerPulse(5);
         sampleEncoder.setReverseDirection(true);
-        sampleEncoder.setSamplesToAverage(7);
+        sampleEncoder.setSamplesToAverage(7);*/
         
         //Starting and stopping a compressor
-        Compressor c = new Compressor(0);
+        /*Compressor c = new Compressor(0);
         c.setClosedLoopControl(true);
         c.setClosedLoopControl(false);
         //Compressor status
         boolean enabled = c.enabled();
         boolean pressureSwitch = c.getPressureSwitchValue();
-        float current = c.getCompressorCurrent();
+        float current = c.getCompressorCurrent();*/
 
         
-        try {
+        /*try {
         	Runtime.getRuntime().exec(GRIP_ARGS);
         } catch (IOException e) {
         	e.printStackTrace();
-        }
+        }*/
         
     }
     
@@ -150,7 +168,6 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	RobotDrive drive = new RobotDrive(0,1,2,3); //4 motor drive
     	switch(autoSelected) {
     	case customAuto:
         //Put custom auto code here   
@@ -168,16 +185,6 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-    	//Getting encoder values
-    	int count = sampleEncoder.get();
-    	double distance = sampleEncoder.getRaw();
-    	double distance1 = sampleEncoder.getDistance();
-    	@SuppressWarnings("deprecation")
-		double period = sampleEncoder.getPeriod();
-    	double rate = sampleEncoder.getRate();
-    	boolean direction = sampleEncoder.getDirection();
-    	boolean stopped = sampleEncoder.getStopped();
     }
     
     /**
@@ -195,17 +202,28 @@ public class Robot extends IterativeRobot {
     	// set Victor's values to match input axis 0
     	mVictor.set(stick.getRawAxis(0));
     	
+    	/* mecanum drive based on joystick 0 values
+    	 * xbox control with left & right thumbsticks
+    	 */
+    	mDrive.mecanumDrive_Cartesian(stick.getRawAxis(1), stick.getRawAxis(0), 
+    			stick.getRawAxis(5), mGyro.getAngle());
+    	
     	// log the values
     	SmartDashboard.putString("Ultrasonic SR04 in: ", inches);
     	SmartDashboard.putString("Ultrasonic SR04 mm: ", mm);
+    	SmartDashboard.putString("Accel X: ", Double.toString(mAccel.getX()));
+    	SmartDashboard.putString("Accel Y: ", Double.toString(mAccel.getY()));
+    	SmartDashboard.putString("Accel Z: ", Double.toString(mAccel.getZ()));
+    	SmartDashboard.putString("Gyro Angle: ", Double.toString(mGyro.getAngle()));
+    	SmartDashboard.putString("Gyro Rate: ", Double.toString(mGyro.getRate()));
     	
     	// log GRIP vision tracking values
     	getGripValues();
     	
+    	//Starting, Stopping and Resetting Encoders
     	Encoder sampleEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
     	sampleEncoder.reset(); 
-    	//Starting, Stopping and Resetting Encoders
-    	    
+    	
     }
     
     /**
