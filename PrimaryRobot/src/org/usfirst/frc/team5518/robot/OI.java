@@ -1,3 +1,30 @@
+/** The MIT License (MIT)
+*
+*
+* Copyright (c) 2016 Techno Wolves
+*
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
+
 package org.usfirst.frc.team5518.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,15 +64,18 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+	
 	Joystick XBOX1 = new Joystick(0);
-	Button button0 = new JoystickButton(XBOX1, RobotMap.XBOX1_ABUTTON);
-	Button button1 = new JoystickButton(XBOX1, RobotMap.XBOX1_BBUTTON);
-	Button button2 = new JoystickButton(XBOX1, RobotMap.XBOX1_XBUTTON);
-	Button button3 = new JoystickButton(XBOX1, RobotMap.XBOX1_YBUTTON);
-	Button button4 = new JoystickButton(XBOX1, RobotMap.XBOX1_RBUMBER);
-	Button button5 = new JoystickButton(XBOX1, RobotMap.XBOX1_LBUMBER);
-	Button button6 = new JoystickButton(XBOX1, RobotMap.XBOX1_BACK);
-	Button button7 = new JoystickButton(XBOX1, RobotMap.XBOX1_START);
-	Button button8 = new JoystickButton(XBOX1, RobotMap.XBOX1_LSTICK);
-	Button button9 = new JoystickButton(XBOX1, RobotMap.XBOX1_RSTICK);
+	
+	Button btnA = new JoystickButton(XBOX1, RobotMap.XBOX1_ABUTTON);
+	Button btnB = new JoystickButton(XBOX1, RobotMap.XBOX1_BBUTTON);
+	Button btnX = new JoystickButton(XBOX1, RobotMap.XBOX1_XBUTTON);
+	Button btnY = new JoystickButton(XBOX1, RobotMap.XBOX1_YBUTTON);
+	Button btnRB = new JoystickButton(XBOX1, RobotMap.XBOX1_RBUMBER);
+	Button btnLB = new JoystickButton(XBOX1, RobotMap.XBOX1_LBUMBER);
+	Button btnBack = new JoystickButton(XBOX1, RobotMap.XBOX1_BACK);
+	Button btnStart = new JoystickButton(XBOX1, RobotMap.XBOX1_START);
+	Button btn8 = new JoystickButton(XBOX1, RobotMap.XBOX1_LSTICK);
+	Button btn9 = new JoystickButton(XBOX1, RobotMap.XBOX1_RSTICK);
+	
 }

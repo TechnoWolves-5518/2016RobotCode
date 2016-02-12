@@ -57,9 +57,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	private final static String[] GRIP_ARGS = new String[] {
-	        "/usr/local/frc/JRE/bin/java", "-jar",
-	        "/home/lvuser/grip.jar", "/home/lvuser/project.grip" };
 	private final NetworkTable grip = NetworkTable.getTable("grip");
 	
 	Joystick stick = new Joystick(0); // init input device 0
@@ -79,11 +76,6 @@ public class Robot extends IterativeRobot {
     ADXRS450_Gyro mGyro; // ADXRS450450 SPI gyroscope
     ADXL362 mAccel; // ADXL362 SPI accelorometer
     
-    public Robot() {
-    	// get published table from GRIP for Vision Tracking
-    	mTable = NetworkTable.getTable("GRIP/myCountoursReport");
-    }
-	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -140,12 +132,12 @@ public class Robot extends IterativeRobot {
         boolean pressureSwitch = c.getPressureSwitchValue();
         float current = c.getCompressorCurrent();*/
 
-        
-        /*try {
-        	Runtime.getRuntime().exec(GRIP_ARGS);
+        // Run GRIP in a new process
+        try {
+        	new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
         } catch (IOException e) {
         	e.printStackTrace();
-        }*/
+        }
         
     }
     
@@ -233,7 +225,7 @@ public class Robot extends IterativeRobot {
     private void getGripValues() {
     	
     	/* Get published values from GRIP using NetworkTables */
-        for (double area : grip.getNumberArray("myCountoursReport/area", new double[0])) {
+        for (double area : grip.getNumberArray("targets/area", new double[0])) {
             System.out.println("Got contour with area = " + area);
         }
     	

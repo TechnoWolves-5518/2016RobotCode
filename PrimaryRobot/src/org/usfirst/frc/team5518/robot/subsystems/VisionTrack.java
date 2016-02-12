@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Lifter extends Subsystem {
+public class VisionTrack extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
