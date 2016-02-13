@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
+import org.usfirst.frc.team5518.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,7 +28,7 @@ public class Claw extends Subsystem {
      * this subsystem and return time in seconds.
      */
     public double initialize() {
-    	randomVictor = new VictorSP(9); // init VictorSP at PWM Port 9 (put port # in RobotMap.java)
+    	randomVictor = new VictorSP(RobotMap.randomVictor); // init VictorSP at PWM Port 9 (put port # in RobotMap.java)
     	randomVictor.enableDeadbandElimination(true); // remove deadband from middle of value range
     	
     	return getTime();
