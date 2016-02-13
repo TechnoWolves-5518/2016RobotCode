@@ -28,7 +28,7 @@
 
 package org.usfirst.frc.team5518.robot;
 
-import org.usfirst.frc.team5518.robot.commands.OpenClaw;
+import org.usfirst.frc.team5518.robot.commands.GrabClaw;
 import org.usfirst.frc.team5518.robot.subsystems.Claw;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -47,9 +47,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	// add subsystems and operator interface here
 	public static final Claw claw = new Claw();
 	public static OI oi;
 
+	// add any other instance variables here
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -58,11 +60,11 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI();
-        chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new OpenClaw());
-//        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+		oi = new OI(); // init the operator interface (joystick & buttons)
+        chooser = new SendableChooser(); // create a selector with radio buttons
+        chooser.addDefault("Default Auto", new GrabClaw()); // add default autonomous cmd
+        // chooser.addObject("My Auto", new MyAutoCommand());
+        SmartDashboard.putData("Auto mode", chooser); // put selector on smartdashboard
     }
 	
 	/**

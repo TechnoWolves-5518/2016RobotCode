@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class CloseClaw extends Command {
+	
+	// instance variable to keep track of time elapsed
+	private double time = 0.0;
 
     public CloseClaw() {
         // Use requires() here to declare subsystem dependencies
@@ -16,15 +19,19 @@ public class CloseClaw extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	// init needed components and get time from init
+    	time = Robot.claw.initialize();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.claw.close();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	// finish cmd after 5 seconds have elapsed
+        return ((Robot.claw.getTime() - time) == 5.0);
     }
 
     // Called once after isFinished returns true
@@ -34,5 +41,6 @@ public class CloseClaw extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
