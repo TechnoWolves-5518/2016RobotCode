@@ -14,6 +14,12 @@ public class Claw extends Subsystem {
 	
 	// Define components in the subsystem
 	VictorSP randomVictor;
+	
+	// init in Constructor
+	public Claw() {
+		// init VictorSP at PWM Port 9 (put port # in RobotMap.java)
+		randomVictor = new VictorSP(RobotMap.randomVictor);
+	}
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -24,11 +30,10 @@ public class Claw extends Subsystem {
     // here. Call these from Commands.
     
     /**
-     * Initialize all the components necessary for
+     * Initialize all the necessary component settings for
      * this subsystem and return time in seconds.
      */
     public double initialize() {
-    	randomVictor = new VictorSP(RobotMap.randomVictor); // init VictorSP at PWM Port 9 (put port # in RobotMap.java)
     	randomVictor.enableDeadbandElimination(true); // remove deadband from middle of value range
     	
     	return getTime();
