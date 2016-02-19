@@ -26,13 +26,20 @@
 */
 
 package org.usfirst.frc.team5518.robot.subsystems;
+import org.usfirst.frc.team5518.robot.Robot;
 
+import org.usfirst.frc.team5518.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
 public class Shooter extends Subsystem {
+	
+	VictorSP mtr0;
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -41,5 +48,27 @@ public class Shooter extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-}
+    
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+    
+    /**
+     * Initialize all the necessary component settings for
+     * this subsystem and return time in seconds.
+     */
+    public void initialize() {
+    	mtr0 = new VictorSP(0);
+    	VictorSP(RobotMap.XBOX1_LSTICK);
+    
+    
 
+	public void Run() {
+    	mtr0.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
+	}
+    
+    public double getAxis(int ctlr, int axis) {
+    	int ctrl = 0;
+    	return ctrl.getRawAxis(axis);
+    	int getaxis = 0;
+    }
+    }

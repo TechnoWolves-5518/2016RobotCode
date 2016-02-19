@@ -76,4 +76,9 @@ public class OI {
 	Button btn8 = new JoystickButton(XBOX1, RobotMap.XBOX1_LSTICK);
 	Button btn9 = new JoystickButton(XBOX1, RobotMap.XBOX1_RSTICK);
 	
+	public double getAxis(int axis) {
+		return XBOX1.getRawAxis(axis);
+	}
+	
 }
+
