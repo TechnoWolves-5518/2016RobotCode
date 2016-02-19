@@ -54,7 +54,8 @@ public class RobotMap {
 	
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
-    // public static int leftMotor = 1;
+	
+    public static int shooterMtr = 0;
     // public static int rightMotor = 2;
 	
 	// example victor on PWM port 9 on RoboRIO
