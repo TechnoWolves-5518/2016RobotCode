@@ -68,7 +68,7 @@ public class Shooter extends Subsystem {
 	public void shoot() {
     	mtr0.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
     	mtr1.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
-    	mtr2.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
+    	mtr2.set(Robot.oi.getAxis(RobotMap.XBOX1_RSTICK));
 	}
     
   }

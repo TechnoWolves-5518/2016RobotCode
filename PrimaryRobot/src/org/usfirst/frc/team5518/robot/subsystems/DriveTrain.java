@@ -27,19 +27,52 @@
 
 package org.usfirst.frc.team5518.robot.subsystems;
 
+import org.usfirst.frc.team5518.robot.Robot;
+import org.usfirst.frc.team5518.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
 public class DriveTrain extends Subsystem {
-    
+	DriveTrain myDrive;
+	VictorSP mtr0;
+	VictorSP mtr1;
+	VictorSP mtr2;
+	VictorSP mtr3;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+	public DriveTrain() {
+    	mtr0 = new VictorSP(RobotMap.DriveMtr);
+    	mtr1 = new VictorSP(RobotMap.DriveMtr);
+    	mtr2 = new VictorSP(RobotMap.DriveMtr);
+    	mtr3 = new VictorSP(RobotMap.DriveMtr);
+	}
+
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+
     }
-}
+    
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+    
+    /**
+     * Initialize all the necessary component settings for
+     * this subsystem and return time in seconds.
+     */
+    public void initialize() {
+    }
+    
+
+	public void shoot() {
+    	mtr0.set(Robot.oi.getAxis(RobotMap.XBOX2_LSTICK));
+    	mtr1.set(Robot.oi.getAxis(RobotMap.XBOX2_LSTICK));
+    	mtr2.set(Robot.oi.getAxis(RobotMap.XBOX2_RSTICK));
+    	mtr3.set(Robot.oi.getAxis(RobotMap.XBOX2_RSTICK));
+	}
+    
+  }
 
