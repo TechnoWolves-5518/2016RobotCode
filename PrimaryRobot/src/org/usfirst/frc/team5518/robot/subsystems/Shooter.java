@@ -38,12 +38,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	
 	VictorSP mtr0;
+	VictorSP mtr1;
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
 	public Shooter() {
     	mtr0 = new VictorSP(RobotMap.shooterMtr);
+    	mtr1 = new VictorSP(RobotMap.shooterMtr);
 	}
 
     public void initDefaultCommand() {
@@ -63,6 +65,7 @@ public class Shooter extends Subsystem {
 
 	public void shoot() {
     	mtr0.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
+    	mtr1.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
 	}
     
   }
