@@ -52,6 +52,24 @@ public class RobotMap {
 	public static int XBOX1_BACK = 2;
 	
 	
+	public static int XBOX2_LSTICKY = 1; 
+	public static int XBOX2_RSTICKX = 4;
+	public static int XBOX2_LTRIGGER = 2;
+	public static int XBOX2_RTRIGGER = 3;
+	
+	public static int XBOX2_YBUTTON = 3;
+	public static int XBOX2_XBUTTON = 2;
+	public static int XBOX2_ABUTTON = 0;
+	public static int XBOX2_BBUTTON = 1; 
+	public static int XBOX2_RBUMBER = 5;
+	public static int XBOX2_LBUMBER = 4;
+	public static int XBOX2_LSTICK = 8;
+	public static int XBOX2_RSTICK = 9;
+	public static int XBOX2_START = 7;
+	public static int XBOX2_BACK = 2;
+	
+	
+	
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
 	
@@ -61,6 +79,7 @@ public class RobotMap {
 	// example victor on PWM port 9 on RoboRIO
 	public static int randomVictor = 9;
     
+	public static int DriveMtr = 0;
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
