@@ -39,6 +39,7 @@ public class Shooter extends Subsystem {
 	
 	VictorSP mtr0;
 	VictorSP mtr1;
+	VictorSP mtr2;
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -46,6 +47,7 @@ public class Shooter extends Subsystem {
 	public Shooter() {
     	mtr0 = new VictorSP(RobotMap.shooterMtr);
     	mtr1 = new VictorSP(RobotMap.shooterMtr);
+    	mtr2 = new VictorSP(RobotMap.shooterMtr);
 	}
 
     public void initDefaultCommand() {
@@ -66,6 +68,7 @@ public class Shooter extends Subsystem {
 	public void shoot() {
     	mtr0.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
     	mtr1.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
+    	mtr2.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
 	}
     
   }
