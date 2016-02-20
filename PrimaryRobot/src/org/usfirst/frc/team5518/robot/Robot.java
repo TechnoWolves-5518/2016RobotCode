@@ -30,6 +30,7 @@ package org.usfirst.frc.team5518.robot;
 
 import org.usfirst.frc.team5518.robot.commands.GrabClaw;
 import org.usfirst.frc.team5518.robot.subsystems.Claw;
+import org.usfirst.frc.team5518.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -49,6 +50,8 @@ public class Robot extends IterativeRobot {
 
 	// add subsystems and operator interface here
 	public static final Claw claw = new Claw();
+	public static final Shooter shooter = new Shooter();
+	
 	public static OI oi;
 
 	// add any other instance variables here

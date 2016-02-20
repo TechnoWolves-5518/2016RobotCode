@@ -47,8 +47,7 @@ public class Shooter extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+
     }
     
     // Put methods for controlling this subsystem
@@ -62,7 +61,7 @@ public class Shooter extends Subsystem {
     }
     
 
-	public void Run() {
+	public void shoot() {
     	mtr0.set(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK));
 	}
     
