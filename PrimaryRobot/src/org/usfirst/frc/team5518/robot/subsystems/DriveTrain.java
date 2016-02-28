@@ -29,7 +29,11 @@ package org.usfirst.frc.team5518.robot.subsystems;
 
 import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
+import org.usfirst.frc.team5518.robot.commands.Drive;
+import org.usfirst.frc.team5518.robot.commands.Shoot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -37,11 +41,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class DriveTrain extends Subsystem {
-	DriveTrain myDrive;
+	RobotDrive robotDrive;
 	VictorSP mtr0;
 	VictorSP mtr1;
 	VictorSP mtr2;
 	VictorSP mtr3;
+	RobotDrive myDrive;
+	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -50,10 +56,11 @@ public class DriveTrain extends Subsystem {
     	mtr1 = new VictorSP(RobotMap.DriveMtr);
     	mtr2 = new VictorSP(RobotMap.DriveMtr);
     	mtr3 = new VictorSP(RobotMap.DriveMtr);
+    	myDrive = new RobotDrive(mtr0,mtr1,mtr2,mtr3);
 	}
 
     public void initDefaultCommand() {
-
+    	setDefaultCommand(new Drive());
     }
     
     // Put methods for controlling this subsystem
@@ -67,11 +74,9 @@ public class DriveTrain extends Subsystem {
     }
     
 
-	public void shoot() {
-    	mtr0.set(Robot.oi.getAxis(RobotMap.XBOX2_LSTICK));
-    	mtr1.set(Robot.oi.getAxis(RobotMap.XBOX2_LSTICK));
-    	mtr2.set(Robot.oi.getAxis(RobotMap.XBOX2_RSTICK));
-    	mtr3.set(Robot.oi.getAxis(RobotMap.XBOX2_RSTICK));
+	public void drive() {
+    	myDrive.arcadeDrive(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK),
+    			Robot.oi.getAxis(RobotMap.XBOX1_RSTICK));
 	}
     
   }

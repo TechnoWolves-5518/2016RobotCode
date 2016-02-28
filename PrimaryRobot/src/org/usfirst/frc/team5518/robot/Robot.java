@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter = new Shooter();
 	
 	public static OI oi;
+	
 
 	// add any other instance variables here
     Command autonomousCommand;

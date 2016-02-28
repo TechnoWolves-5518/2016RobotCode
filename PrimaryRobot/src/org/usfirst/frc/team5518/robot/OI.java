@@ -79,6 +79,6 @@ public class OI {
 	public double getAxis(int axis) {
 		return XBOX1.getRawAxis(axis);
 	}
-	
+		
 }
 

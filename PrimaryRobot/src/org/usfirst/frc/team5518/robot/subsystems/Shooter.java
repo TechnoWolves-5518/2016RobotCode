@@ -28,6 +28,7 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
+import org.usfirst.frc.team5518.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -51,7 +52,7 @@ public class Shooter extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-
+    	setDefaultCommand(new Shoot());
     }
     
     // Put methods for controlling this subsystem
