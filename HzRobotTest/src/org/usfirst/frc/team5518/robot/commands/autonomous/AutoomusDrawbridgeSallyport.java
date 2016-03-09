@@ -5,18 +5,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class Autonomous extends CommandGroup {
+public class AutoomusDrawbridgeSallyport extends CommandGroup {
     
-    public  Autonomous() {
+    public  AutoomusDrawbridgeSallyport() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-    	
     	addSequential(new DriveUltra());
+    	addSequential(new PullBack());
+    	addSequential(new DriveFixed());
+    	addSequential(new DriveFixed());
     	addSequential(new Rotate());
     	addSequential(new ShootAuto());
-
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

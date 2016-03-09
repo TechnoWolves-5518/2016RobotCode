@@ -49,8 +49,8 @@ public class Robot extends IterativeRobot {
 	
 	//	Beginning of Autonomous Mode Code	
 	public static final Autonomous autonomous = new Autonomous();
-    /*Command autonomousCmd;
-    SendableChooser chooser;*/
+    Command autonomousCmd;
+    SendableChooser chooser;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -95,7 +95,7 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
     	//	Beginning of Autonomous Mode Code	
-    	/*autonomousCmd = (Command) chooser.getSelected();
+    	autonomousCmd = (Command) chooser.getSelected();
         
 		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -111,9 +111,9 @@ public class Robot extends IterativeRobot {
     	
     	// add command and schedule autonomous
     	if (autonomousCmd != null) {
-	    	//autonomous.addSequential(autonomousCmd);
-	    	//autonomous.addSequential(new DriveUltra());
-    	}*/
+	    	autonomous.addSequential(autonomousCmd);
+	    	autonomous.addSequential(new DriveUltra());
+    	}
     	
     	autonomous.start();
     	
