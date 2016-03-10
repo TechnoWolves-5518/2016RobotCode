@@ -58,7 +58,7 @@ public class TowerTracker {
 	static{ 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		NetworkTable.setClientMode();
-		NetworkTable.setIPAddress("roborio-5518-frc.local");
+		NetworkTable.setIPAddress("10.55.18.102");
 	}
 //	constants for the color rbg values
 	public static final Scalar 
@@ -108,7 +108,7 @@ public class TowerTracker {
 			try {
 				// opens up the camera stream and tries to load it
 				videoCapture = new VideoCapture();
-				videoCapture.open("http://10.55.18.20/mjpg/video.mjpg");
+				videoCapture.open("http://10.55.18.102:8080/?action=stream");
 				// wait until it is opened
 				while(!videoCapture.isOpened()){}
 				// time to actually process the acquired images

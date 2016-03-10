@@ -1,46 +1,47 @@
-package org.usfirst.frc.team5518.robot.commands.drivetrain;
+package org.usfirst.frc.team5518.robot.commands.shooter;
 
 import org.usfirst.frc.team5518.robot.Robot;
-import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class FineWheelCtrl extends Command {
+public class ShootAuto extends Command {
+	
+	private static final double TOL_MILLISEC = 2.0;
+	private double time = 0;
 
-    public FineWheelCtrl() {
+    public ShootAuto() {
         // Use requires() here to declare subsystem dependencies
-    	requires(Robot.driveTrain);
+        requires(Robot.shooter);
+        requires(Robot.intakeMech);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrain.init();
+    	time = Robot.shooter.init();
+    	Robot.intakeMech.init();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double[] axis = new double[2];
-    	axis[0] = Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_LSTICKY);
-    	axis[1] = Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_RSTICKX);
-    	Robot.driveTrain.drive(axis, true);
+    	Robot.intakeMech.intake(1);
+    	Robot.shooter.shoot(new double[] { 1, 1 });
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.driveTrain.toggleInvert();
+        return ((System.currentTimeMillis() - time) >= TOL_MILLISEC);
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	new InvertWheelCtrl().start();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	
+    	end();
     }
 }

@@ -1,11 +1,10 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
+import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.FineWheelCtrl;
-import org.usfirst.frc.team5518.robot.commands.drivetrain.WheelCtrl;
 
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +22,9 @@ public class DriveTrain extends Subsystem {
 	VictorSP rlMotor;
 	VictorSP frMotor;
 	VictorSP rrMotor;
+	
+	public boolean btnInvertState = true;
+	public boolean blnAlready = false;
 	
 	public DriveTrain() {
 		flMotor = new VictorSP(RobotMap.FRONT_LEFT_MTR);
@@ -56,10 +58,10 @@ public class DriveTrain extends Subsystem {
     /**
      * Initialize all necessary components for subsystem
      * and command
-     * @return Return system uptime in seconds
+     * @return Return system uptime in milliseconds
      */
-    public double init() {
-    	return Timer.getFPGATimestamp();
+    public long init() {
+    	return System.currentTimeMillis();
     }
     
     /**
@@ -70,6 +72,8 @@ public class DriveTrain extends Subsystem {
     	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
     }
     
+    //I do not think the code below does anything should it be removed?
+    //The code does not seem to actually invert the controls of the robot, which is something that Felix asked for
     /**
      * Drive the robot in opposite directions according to mapped
      * controller controls.
@@ -77,6 +81,23 @@ public class DriveTrain extends Subsystem {
      */
     public void invert(double[] axis, boolean fineCtrl) {
     	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
+    }
+    
+    public boolean toggleInvert() {
+    	if (blnAlready == false && (Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER))) {
+    		blnAlready = true;
+    		if (btnInvertState) {
+    			btnInvertState = false;
+    			return false;
+    		} else {
+        		btnInvertState = true;
+        		return true;
+    		}
+	    } else if (!Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER)) {
+	    		blnAlready = false;
+	    }
+    	
+    	return false;
     }
     
     /**

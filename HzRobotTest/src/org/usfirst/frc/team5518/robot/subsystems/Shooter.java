@@ -3,7 +3,6 @@ package org.usfirst.frc.team5518.robot.subsystems;
 import org.usfirst.frc.team5518.robot.RobotMap;
 import org.usfirst.frc.team5518.robot.commands.shooter.Shoot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,8 +32,8 @@ public class Shooter extends Subsystem {
     /**
      * 
      */
-    public double init() {
-    	return Timer.getFPGATimestamp();
+    public long init() {
+    	return System.currentTimeMillis();
     }
     
     /**

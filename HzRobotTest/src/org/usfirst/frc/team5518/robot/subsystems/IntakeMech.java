@@ -2,7 +2,7 @@ package org.usfirst.frc.team5518.robot.subsystems;
 
 import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
-import org.usfirst.frc.team5518.robot.commands.shooter.IntakeMtr;
+import org.usfirst.frc.team5518.robot.commands.intakemech.IntakeMtr;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -34,8 +34,8 @@ public class IntakeMech extends Subsystem {
     /**
      * 
      */
-    public void init() {
-    
+    public long init() {
+    	return System.currentTimeMillis();
     }
     
     /**
@@ -53,15 +53,14 @@ public class IntakeMech extends Subsystem {
      * 
      */
     public void toggleIntakeMtrDir(){
-    	if (blnAlready == false && (Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER))) {
+    	if (blnAlready == false && (Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
+    			RobotMap.XBOX_LBUMBER))) {
     		blnAlready = true;
-	    		if (btnIntakeState) {
-	        		btnIntakeState = false;
-	        	} else {
-	        		btnIntakeState = true;
-	        	}
-	    	}
-	    else if (!Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER)) {
+    		if (btnIntakeState)
+        		btnIntakeState = false;
+        	else
+	        	btnIntakeState = true;
+	    } else if (!Robot.oi.getBtn(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LBUMBER)) {
 	    		blnAlready = false;
 	    }	
     }
