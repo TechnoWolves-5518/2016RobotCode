@@ -25,7 +25,7 @@
 * SOFTWARE.
 */
 
-package org.technowolves.towertracker;
+package org.technowolves.vision;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -67,24 +67,24 @@ public class TowerTracker {
 	GREEN = new Scalar(0, 255, 0),
 	BLACK = new Scalar(0,0,0),
 	YELLOW = new Scalar(0, 255, 255),
-//	these are the threshold values in order 
+	// these are the threshold values in order 
 	LOWER_BOUNDS = new Scalar(58,0,109),
 	UPPER_BOUNDS = new Scalar(93,255,240);
 	
-//	the size for resing the image
+	// the size for resing the image
 	public static final Size resize = new Size(320,240);
 	
-//	ignore these
+	// ignore these
 	public static VideoCapture videoCapture;
 	public static Mat matOriginal, matHSV, matThresh, clusters, matHeirarchy;
 	
-//	Constants for known variables
-//	the height to the top of the target in first stronghold is 97 inches	
+	// Constants for known variables
+	// the height to the top of the target in first stronghold is 97 inches	
 	public static final int TOP_TARGET_HEIGHT = 97;
-//	the physical height of the camera lens
+	// the physical height of the camera lens
 	public static final int TOP_CAMERA_HEIGHT = 32;
 	
-//	camera details, can usually be found on the datasheets of the camera
+	// camera details, can usually be found on the datasheets of the camera
 	public static final double VERTICAL_FOV  = 51;
 	public static final double HORIZONTAL_FOV  = 67;
 	public static final double CAMERA_ANGLE = 10;
@@ -102,16 +102,13 @@ public class TowerTracker {
 		matThresh = new Mat();
 		clusters = new Mat();
 		matHeirarchy = new Mat();
-		NetworkTable table = NetworkTable.getTable("SmartDashboard");
+		//NetworkTable table = NetworkTable.getTable("SmartDashboard");
 		// main loop of the program
 		while(shouldRun){
 			try {
 				// opens up the camera stream and tries to load it
 				videoCapture = new VideoCapture();
-				// replaces the ##.## with your team number
 				videoCapture.open("http://10.55.18.20/mjpg/video.mjpg");
-				// Example
-				// cap.open("http://10.30.19.11/mjpg/video.mjpg");
 				// wait until it is opened
 				while(!videoCapture.isOpened()){}
 				// time to actually process the acquired images
