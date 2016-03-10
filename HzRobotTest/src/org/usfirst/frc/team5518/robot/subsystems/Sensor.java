@@ -89,9 +89,12 @@ public class Sensor extends Subsystem {
     
     /* This section needs to be finished and put in both Teleop Perioidic and Autonomous Periodic 
      * so that it can read the distance and be used by other classes*/
-    public void sensorRead() {
-    	forwardUltraD = (int) forwardUltra.getRangeInches();
-    	backwardUltraD = (int) backwardUltra.getRangeInches();
+    public double[] sensorRead() {
+    	double[] ultra = new double[2];
+    	ultra[0] = forwardUltra.getRangeInches();
+    	ultra[1] = backwardUltra.getRangeInches();
+    	
+    	return ultra;
     }
     
     /**
