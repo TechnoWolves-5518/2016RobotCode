@@ -1,35 +1,16 @@
-/** The MIT License (MIT)
-*
-*
-* Copyright (c) 2016 Techno Wolves
-*
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*/
-
 
 package org.usfirst.frc.team5518.robot;
 
-import org.usfirst.frc.team5518.robot.commands.GrabClaw;
-import org.usfirst.frc.team5518.robot.subsystems.Claw;
+import org.usfirst.frc.team5518.robot.commands.autonomous.DefaultAuto;
+import org.usfirst.frc.team5518.robot.commands.autonomous.LiftAndDrive;
+import org.usfirst.frc.team5518.robot.commands.autonomous.PullAndDrive;
+import org.usfirst.frc.team5518.robot.subsystems.ArmLifter;
+import org.usfirst.frc.team5518.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5518.robot.subsystems.IntakeMech;
+/*	Beginning of Autonomous Mode Code	
+import org.usfirst.frc.team5518.robot.commands.autonomous.Autonomous;
+*/
+import org.usfirst.frc.team5518.robot.subsystems.Sensor;
 import org.usfirst.frc.team5518.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -38,6 +19,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+/* Start of Autonomous Code
+ * import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.command.Command;*/
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -47,28 +31,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	private static final String AUTO_CHOOSER = "AUTONOMOUS MODE SELECTOR";
+	private static final String DEFAULT_AUTO = "Default Auto";
+	private static final String LIFT_DRIVE_AUTO = "Lift and Drive Auto";	
+	private static final String PULL_DRIVE_AUTO = "Pull and Drive Auto";
 
-	// add subsystems and operator interface here
-	public static final Claw claw = new Claw();
+	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Shooter shooter = new Shooter();
+	public static final IntakeMech intakeMech = new IntakeMech();
+	public static final ArmLifter armLifter = new ArmLifter();
+	public static final Sensor sensor = new Sensor();
 	
 	public static OI oi;
 	
-
-	// add any other instance variables here
-    Command autonomousCommand;
+	//	Beginning of Autonomous Mode Code	
+    Command autonomousCmd;
     SendableChooser chooser;
-
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI(); // init the operator interface (joystick & buttons)
-        chooser = new SendableChooser(); // create a selector with radio buttons
-        chooser.addDefault("Default Auto", new GrabClaw()); // add default autonomous cmd
-        // chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser); // put selector on smartdashboard
+		oi = new OI();
+		SmartDashboard.putData(driveTrain);
+		SmartDashboard.putData(shooter);
+		SmartDashboard.putData(intakeMech);
+		SmartDashboard.putData(armLifter);
+		SmartDashboard.putData(sensor);
+		
+		//	Beginning of Autonomous Mode Code	
+        chooser = new SendableChooser();
+        chooser.addDefault(DEFAULT_AUTO, new DefaultAuto());
+        chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
+        chooser.addObject(PULL_DRIVE_AUTO, new PullAndDrive());
+        SmartDashboard.putData(AUTO_CHOOSER, chooser);
     }
 	
 	/**
@@ -94,21 +92,29 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
+    	//	Beginning of Autonomous Mode Code	
+    	autonomousCmd = (Command) chooser.getSelected();
         
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		String autoSelected = SmartDashboard.getString(AUTO_CHOOSER, DEFAULT_AUTO);
 		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
+		case PULL_DRIVE_AUTO:
+			autonomousCmd = new PullAndDrive();
 			break;
-		case "Default Auto":
+		case LIFT_DRIVE_AUTO:
+			autonomousCmd = new LiftAndDrive();
+			break;
+		case DEFAULT_AUTO:
 		default:
-			autonomousCommand = new ExampleCommand();
+			autonomousCmd = new DefaultAuto();
 			break;
-		} */
+		} 	
     	
-    	// schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+    	
+    	// add command and schedule autonomous
+    	if (autonomousCmd != null) {
+	    	autonomousCmd.start();
+    	}
+    	
     }
 
     /**
@@ -116,14 +122,17 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        new Runnable() {
+			public void run() {
+		        sensor.log();
+			}
+		}.run();
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        //if (autonomousCommand != null) autonomousCommand.cancel();   //This line makes sure that autonomous stops runing when teleop start running
+    	sensor.init();
     }
 
     /**
@@ -131,6 +140,16 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        new Runnable() {
+			public void run() {
+				driveTrain.log();
+		        shooter.log();
+		        armLifter.log();
+		        sensor.log();
+				intakeMech.log();
+			}
+		}.run();
     }
     
     /**
@@ -139,4 +158,5 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
+    
 }

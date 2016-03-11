@@ -1,35 +1,15 @@
-/** The MIT License (MIT)
-*
-*
-* Copyright (c) 2016 Techno Wolves
-*
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*/
-
 package org.usfirst.frc.team5518.robot;
+
+import org.usfirst.frc.team5518.robot.commands.armlifter.CloseCylinders;
+import org.usfirst.frc.team5518.robot.commands.armlifter.OpenCylinders;
+import org.usfirst.frc.team5518.robot.commands.drivetrain.FineWheelCtrl;
+import org.usfirst.frc.team5518.robot.commands.drivetrain.InvertWheelCtrl;
+import org.usfirst.frc.team5518.robot.commands.shooter.IntakeMtrDir;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -40,12 +20,32 @@ public class OI {
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
     // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
+	
+    Joystick[] ctrlr = new Joystick[] { 
+    		new Joystick(RobotMap.JOYSTICK_ZERO),
+    		new Joystick(RobotMap.JOYSTICK_ONE) };
+    
+    Button[] btns0 = new JoystickButton[] { 
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ZERO], RobotMap.XBOX_ABUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ZERO], RobotMap.XBOX_XBUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ZERO], RobotMap.XBOX_YBUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ZERO], RobotMap.XBOX_BBUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ZERO], RobotMap.XBOX_LBUMBER),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ZERO], RobotMap.XBOX_RBUMBER)
+    };
+    
+    Button[] btns1 = new JoystickButton[] {
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ONE], RobotMap.XBOX_ABUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ONE], RobotMap.XBOX_XBUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ONE], RobotMap.XBOX_YBUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ONE], RobotMap.XBOX_BBUTTON),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ONE], RobotMap.XBOX_LBUMBER),
+    		new JoystickButton(ctrlr[RobotMap.JOYSTICK_ONE], RobotMap.XBOX_RBUMBER)
+    };
     
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.b
+    // commands the same as any other Button.
     
     //// TRIGGERING COMMANDS WITH BUTTONS
     // Once you have a button, it's trivial to bind it to a button in one of
@@ -54,7 +54,7 @@ public class OI {
     // Start the command when the button is pressed and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenPressed(new ExampleCommand());
-   
+    
     // Run the command while the button is being held down and interrupt it once
     // the button is released.
     // button.whileHeld(new ExampleCommand());
@@ -62,23 +62,45 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
-	
-	Joystick XBOX1 = new Joystick(0);
-	
-	Button btnA = new JoystickButton(XBOX1, RobotMap.XBOX1_ABUTTON);
-	Button btnB = new JoystickButton(XBOX1, RobotMap.XBOX1_BBUTTON);
-	Button btnX = new JoystickButton(XBOX1, RobotMap.XBOX1_XBUTTON);
-	Button btnY = new JoystickButton(XBOX1, RobotMap.XBOX1_YBUTTON);
-	Button btnRB = new JoystickButton(XBOX1, RobotMap.XBOX1_RBUMBER);
-	Button btnLB = new JoystickButton(XBOX1, RobotMap.XBOX1_LBUMBER);
-	Button btnBack = new JoystickButton(XBOX1, RobotMap.XBOX1_BACK);
-	Button btnStart = new JoystickButton(XBOX1, RobotMap.XBOX1_START);
-	Button btn8 = new JoystickButton(XBOX1, RobotMap.XBOX1_LSTICK);
-	Button btn9 = new JoystickButton(XBOX1, RobotMap.XBOX1_RSTICK);
-	
-	public double getAxis(int axis) {
-		return XBOX1.getRawAxis(axis);
-	}
-		
+    
+    public OI() {
+    	//btns0[0].toggleWhenPressed(new FineWheelCtrl()); // xbox 1 A btn
+    	//btns0[1].toggleWhenPressed(new InvertWheelCtrl()); // xbox 1 X btn
+    	
+    	btns1[0].toggleWhenPressed(new CloseCylinders()); // xbox 2 A btn
+    	btns1[1].toggleWhenPressed(new OpenCylinders()); // xbox 2 X btn
+    	
+    	/* Test Section (Comment out section in IntakeMtr.java to test)
+    	btns1[4].toggleWhenPressed(new IntakeMtrDir()); // xbox 2 LB btn
+    	*/
+    	
+    	SmartDashboard.putData("Invert Wheel Ctrl", new InvertWheelCtrl());
+    	//SmartDashboard.putData("Fine Wheel Ctrl", new FineWheelCtrl());
+    }
+    
+    /**
+     * Get the raw axis values of given controller and axis
+     * @param idx Controller number of specified controller from Driver Station
+     * @param axis Specified axis number of control from respective controller
+     * @return 
+     */
+    public double getAxis(int idx, int axis) {
+    	double rawAxis = 0;
+    	rawAxis = ctrlr[idx].getRawAxis(axis);
+    	
+    	return rawAxis;
+    }
+    
+    /**
+     * 
+     * @param idx
+     * @param btn
+     * @return
+     */
+    public boolean getBtn(int idx, int btn) {
+    	boolean rawBtn = ctrlr[idx].getRawButton(btn);
+    	return rawBtn;
+    }
+    
 }
 

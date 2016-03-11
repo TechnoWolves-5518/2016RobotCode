@@ -1,83 +1,114 @@
-/** The MIT License (MIT)
-*
-*
-* Copyright (c) 2016 Techno Wolves
-*
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*/
-
 package org.usfirst.frc.team5518.robot.subsystems;
 
 import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
-import org.usfirst.frc.team5518.robot.commands.Drive;
-import org.usfirst.frc.team5518.robot.commands.Shoot;
+import org.usfirst.frc.team5518.robot.commands.drivetrain.FineWheelCtrl;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * DriveTrain subsystem handles all of the wheels'
+ * speed controllers and CIM motors.
  */
 public class DriveTrain extends Subsystem {
-	RobotDrive robotDrive;
-	VictorSP mtr0;
-	VictorSP mtr1;
-	VictorSP mtr2;
-	VictorSP mtr3;
-	RobotDrive myDrive;
 	
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-
+	public static final String SUBSYSTEM = "DriveTrain";
+	
+	RobotDrive robotDrive;
+	VictorSP flMotor;
+	VictorSP rlMotor;
+	VictorSP frMotor;
+	VictorSP rrMotor;
+	
+	public boolean btnInvertState = true;
+	public boolean blnAlready = false;
+	
 	public DriveTrain() {
-    	mtr0 = new VictorSP(RobotMap.DriveMtr);
-    	mtr1 = new VictorSP(RobotMap.DriveMtr);
-    	mtr2 = new VictorSP(RobotMap.DriveMtr);
-    	mtr3 = new VictorSP(RobotMap.DriveMtr);
-    	myDrive = new RobotDrive(mtr0,mtr1,mtr2,mtr3);
+		flMotor = new VictorSP(RobotMap.FRONT_LEFT_MTR);
+		rlMotor = new VictorSP(RobotMap.REAR_LEFT_MTR);
+		frMotor = new VictorSP(RobotMap.FRONT_RIGHT_MTR);
+		rrMotor = new VictorSP(RobotMap.REAR_RIGHT_MTR);
+		
+		flMotor.enableDeadbandElimination(true);
+		rlMotor.enableDeadbandElimination(true);
+		frMotor.enableDeadbandElimination(true);
+		rrMotor.enableDeadbandElimination(true);
+		
+		flMotor.setSafetyEnabled(true);
+		rlMotor.setSafetyEnabled(true);
+		frMotor.setSafetyEnabled(true);
+		rrMotor.setSafetyEnabled(true);
+		
+		flMotor.setExpiration(0.5);
+		rlMotor.setExpiration(0.5);		
+		frMotor.setExpiration(0.5);
+		rrMotor.setExpiration(0.5);
+		
+		robotDrive = new RobotDrive(flMotor, rlMotor, frMotor, rrMotor);
 	}
-
-    public void initDefaultCommand() {
-    	setDefaultCommand(new Drive());
-    }
     
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        setDefaultCommand(new FineWheelCtrl());
+    }
     
     /**
-     * Initialize all the necessary component settings for
-     * this subsystem and return time in seconds.
+     * Initialize all necessary components for subsystem
+     * and command
+     * @return Return system uptime in milliseconds
      */
-    public void initialize() {
+    public long init() {
+    	return System.currentTimeMillis();
     }
     
-
-	public void drive() {
-    	myDrive.arcadeDrive(Robot.oi.getAxis(RobotMap.XBOX1_LSTICK),
-    			Robot.oi.getAxis(RobotMap.XBOX1_RSTICK));
-	}
+    /**
+     * Drive the robot according mapped controller controls
+     * @param fineCtrl If set, decrease the sensitivity at low speeds.
+     */
+    public void drive(double[] axis, boolean fineCtrl) {
+    	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
+    }
     
-  }
+    //I do not think the code below does anything should it be removed?
+    //The code does not seem to actually invert the controls of the robot, which is something that Felix asked for
+    /**
+     * Drive the robot in opposite directions according to mapped
+     * controller controls.
+     * @param fineCtrl If set, decrease the sensitivity at low speeds.
+     */
+    public void invert(double[] axis, boolean fineCtrl) {
+    	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
+    }
+    
+    public boolean toggleInvert() {
+    	if (blnAlready == false && (Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER))) {
+    		blnAlready = true;
+    		if (btnInvertState) {
+    			btnInvertState = false;
+    			return false;
+    		} else {
+        		btnInvertState = true;
+        		return true;
+    		}
+	    } else if (!Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER)) {
+	    		blnAlready = false;
+	    }
+    	
+    	return false;
+    }
+    
+    /**
+     * Log component values.
+     */
+    public void log() {
+    	SmartDashboard.putNumber(SUBSYSTEM + " FL Motor: ", flMotor.get());
+    	SmartDashboard.putNumber(SUBSYSTEM + " RL Motor: ", rlMotor.get());
+    	SmartDashboard.putNumber(SUBSYSTEM + " FR Motor: ", frMotor.get());
+    	SmartDashboard.putNumber(SUBSYSTEM + " RR Motor: ", rrMotor.get());
+    }
+    
+}
 
