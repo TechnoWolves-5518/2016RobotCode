@@ -23,8 +23,8 @@ public class FineWheelCtrl extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double[] axis = new double[2];
-    	axis[0] = Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_LSTICKY);
-    	axis[1] = Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_RSTICKX);
+    	axis[0] = -Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_LSTICKY);
+    	axis[1] = -Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_RSTICKX);
     	Robot.driveTrain.drive(axis, true);
     }
 
