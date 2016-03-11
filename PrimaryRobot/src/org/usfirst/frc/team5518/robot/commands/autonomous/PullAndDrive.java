@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5518.robot.commands.autonomous;
 
 import org.usfirst.frc.team5518.robot.commands.armlifter.LowerArms;
+import org.usfirst.frc.team5518.robot.commands.armlifter.RaiseArms;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveFixed;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.Rotate;
 import org.usfirst.frc.team5518.robot.commands.intakemech.PickUpBall;
@@ -19,14 +20,16 @@ public class PullAndDrive extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
     	
-    	addSequential(new PickUpBall());
+    	addParallel(new PickUpBall());
+    	addSequential(new RaiseArms());
+    	
     	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	
     	// lower arms and drive in parallel
     	addParallel(new LowerArms());
     	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	
-    	addSequential(new DriveUltra(5.0)); // 5 in. tolerance
+    	addSequential(new DriveUltra(10.0)); // 10 in. tolerance
     	addSequential(new Rotate(500)); // 500 ms tolerance
     	addSequential(new ShootAuto());
 

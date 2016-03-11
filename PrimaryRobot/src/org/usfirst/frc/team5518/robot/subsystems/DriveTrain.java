@@ -43,7 +43,7 @@ public class DriveTrain extends Subsystem {
 		rrMotor.setSafetyEnabled(true);
 		
 		flMotor.setExpiration(0.5);
-		rlMotor.setExpiration(0.5);		
+		rlMotor.setExpiration(0.5);
 		frMotor.setExpiration(0.5);
 		rrMotor.setExpiration(0.5);
 		
@@ -69,35 +69,31 @@ public class DriveTrain extends Subsystem {
      * @param fineCtrl If set, decrease the sensitivity at low speeds.
      */
     public void drive(double[] axis, boolean fineCtrl) {
-    	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
+    	if (btnInvertState)
+    		invert(axis, fineCtrl);
+    	else
+    		robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
     }
     
-    //I do not think the code below does anything should it be removed?
-    //The code does not seem to actually invert the controls of the robot, which is something that Felix asked for
     /**
      * Drive the robot in opposite directions according to mapped
      * controller controls.
      * @param fineCtrl If set, decrease the sensitivity at low speeds.
      */
     public void invert(double[] axis, boolean fineCtrl) {
-    	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
+    	robotDrive.arcadeDrive(-axis[0], -axis[1], fineCtrl);
     }
     
-    public boolean toggleInvert() {
-    	if (blnAlready == false && (Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER))) {
+    public void toggleInvert() {
+    	if (blnAlready == false && (Robot.oi.getBtn(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_XBUTTON))) {
     		blnAlready = true;
-    		if (btnInvertState) {
+    		if (btnInvertState)
     			btnInvertState = false;
-    			return false;
-    		} else {
+    		else
         		btnInvertState = true;
-        		return true;
-    		}
-	    } else if (!Robot.oi.getBtn(1, RobotMap.XBOX_LBUMBER)) {
+	    } else if (!Robot.oi.getBtn(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_XBUTTON)) {
 	    		blnAlready = false;
 	    }
-    	
-    	return false;
     }
     
     /**

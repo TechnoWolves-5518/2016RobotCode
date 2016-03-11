@@ -60,8 +60,9 @@ public class ArmLifter extends Subsystem {
     	
     	leftMtr.enableDeadbandElimination(true);
     	rightMtr.enableDeadbandElimination(true);
-    	leftMtr.setInverted(true);
-    	rightMtr.setInverted(true);
+    	
+    	/*leftMtr.setInverted(true);
+    	rightMtr.setInverted(true);*/
     	
     	/*leftArm = new PIDController(0.0, 0.0, 0.0, leftPot, leftMtr);
     	rightArm = new PIDController(0.0, 0.0, 0.0, rightPot, rightMtr);*/
@@ -86,9 +87,8 @@ public class ArmLifter extends Subsystem {
 	public void moveArms() {
 		leftMtr.set(
 				armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),true));
-		rightMtr.set(//SLOW_FACTOR
+		rightMtr.set(
 				armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY),false));
-		//		armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_XSTICKY),false));
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class ArmLifter extends Subsystem {
 	 * @return Calculation in degrees based on 8.76 turns to 12" ratio
 	 */
 	private double calcTravel(double angle) {
-		return (angle/(360*POT_TRAVEL));
+		return ((POT_FULL-angle)/(360*POT_TRAVEL));
 	}
 	
 	/**
@@ -143,18 +143,13 @@ public class ArmLifter extends Subsystem {
 		//return axis;
 		
 		if (left) {
+			// check if left pot/arm are in between limits
 			aboveMin = (calcTravel(leftPot.get()) > ARM_LEFT_MIN); 
 			belowMax = (calcTravel(leftPot.get()) < ARM_LEFT_MAX);
 		} else {
-		// check if left & right pot are above min arm limit
-		aboveMin = (calcTravel(rightPot.get()) > ARM_RIGHT_MIN); 
-				/*&&
-				(calcTravel(rightPot.get()) > ARM_MIN);*/
-		
-		// check if left & right pot are below max arm limit
-		belowMax = (calcTravel(rightPot.get()) < ARM_RIGHT_MAX); 
-				/*&&
-				(calcTravel(rightPot.get()) < ARM_MAX);*/
+			// check if right pot/arm are in between limits
+			aboveMin = (calcTravel(rightPot.get()) > ARM_RIGHT_MIN); 
+			belowMax = (calcTravel(rightPot.get()) < ARM_RIGHT_MAX); 
 		}
 		
 		/*

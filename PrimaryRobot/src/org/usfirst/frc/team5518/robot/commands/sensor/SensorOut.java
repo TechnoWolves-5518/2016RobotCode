@@ -16,7 +16,7 @@ public class SensorOut extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	Robot.sensor.init();
     }
 
     // Called repeatedly when this Command is scheduled to run

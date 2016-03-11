@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	
 	private static final String AUTO_CHOOSER = "AUTONOMOUS MODE SELECTOR";
 	private static final String DEFAULT_AUTO = "Default Auto";
-	private static final String LIFT_DRIVE_AUTO = "Lift and Drive Auto";	
+	//private static final String LIFT_DRIVE_AUTO = "Lift and Drive Auto";	
 	private static final String PULL_DRIVE_AUTO = "Pull and Drive Auto";
 
 	public static final DriveTrain driveTrain = new DriveTrain();
@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 		//	Beginning of Autonomous Mode Code	
         chooser = new SendableChooser();
         chooser.addDefault(DEFAULT_AUTO, new DefaultAuto());
-        chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
+        //chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
         chooser.addObject(PULL_DRIVE_AUTO, new PullAndDrive());
         SmartDashboard.putData(AUTO_CHOOSER, chooser);
     }
@@ -100,9 +100,9 @@ public class Robot extends IterativeRobot {
 		case PULL_DRIVE_AUTO:
 			autonomousCmd = new PullAndDrive();
 			break;
-		case LIFT_DRIVE_AUTO:
+		/*case LIFT_DRIVE_AUTO:
 			autonomousCmd = new LiftAndDrive();
-			break;
+			break;*/
 		case DEFAULT_AUTO:
 		default:
 			autonomousCmd = new DefaultAuto();

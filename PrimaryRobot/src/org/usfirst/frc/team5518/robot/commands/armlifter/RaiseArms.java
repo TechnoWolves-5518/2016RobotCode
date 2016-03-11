@@ -7,15 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LiftArms extends Command {
+public class RaiseArms extends Command {
 
-    public LiftArms() {
+    public RaiseArms() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.armLifter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.armLifter.init();
     }
 
     // Called repeatedly when this Command is scheduled to run
