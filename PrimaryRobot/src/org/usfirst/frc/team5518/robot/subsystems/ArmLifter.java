@@ -26,10 +26,10 @@ public class ArmLifter extends Subsystem {
 	private static final double LEFT_POT_SHIFT = 0;
 	private static final double RIGHT_POT_SHIFT = 0;
 	
-	public static double ARM_LEFT_MIN = 0.08; // 1.75
-	public static double ARM_LEFT_MAX = 12.0; // 13.50
-	public static double ARM_RIGHT_MIN = 0.04; // 1.60
-	public static double ARM_RIGHT_MAX = 11.50; // 13.60
+	public static double ARM_LEFT_MIN = 0.11; // 1.75  .08
+	public static double ARM_LEFT_MAX = 12.0; // 13.50 12.0
+	public static double ARM_RIGHT_MIN = 0.034; // 1.60  .04
+	public static double ARM_RIGHT_MAX = 11.50; // 13.60  11.50
 	
 	VictorSP leftMtr;
 	VictorSP rightMtr;
@@ -61,8 +61,8 @@ public class ArmLifter extends Subsystem {
     	leftMtr.enableDeadbandElimination(true);
     	rightMtr.enableDeadbandElimination(true);
     	
-    	/*leftMtr.setInverted(true);
-    	rightMtr.setInverted(true);*/
+    	leftMtr.setInverted(true);
+    	rightMtr.setInverted(true);
     	
     	/*leftArm = new PIDController(0.0, 0.0, 0.0, leftPot, leftMtr);
     	rightArm = new PIDController(0.0, 0.0, 0.0, rightPot, rightMtr);*/
@@ -166,12 +166,12 @@ public class ArmLifter extends Subsystem {
 		
 		if (left) {
 			// check if left pot/arm are in between limits
-			aboveMin = (calcTravel(leftPot.get()) > ARM_LEFT_MIN); 
-			belowMax = (calcTravel(leftPot.get()) < ARM_LEFT_MAX);
+			aboveMin = false;//(calcTravel(leftPot.get()) > ARM_LEFT_MIN); 
+			belowMax = false;//(calcTravel(leftPot.get()) < ARM_LEFT_MAX);
 		} else {
 			// check if right pot/arm are in between limits
-			aboveMin = (calcTravel(rightPot.get()) > ARM_RIGHT_MIN); 
-			belowMax = (calcTravel(rightPot.get()) < ARM_RIGHT_MAX); 
+			aboveMin = false;//(calcTravel(rightPot.get()) > ARM_RIGHT_MIN); 
+			belowMax = false;//(calcTravel(rightPot.get()) < ARM_RIGHT_MAX); 
 		}
 		
 		/*

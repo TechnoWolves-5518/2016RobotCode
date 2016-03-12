@@ -12,6 +12,7 @@ import org.usfirst.frc.team5518.robot.commands.autonomous.Autonomous;
 */
 import org.usfirst.frc.team5518.robot.subsystems.Sensor;
 import org.usfirst.frc.team5518.robot.subsystems.Shooter;
+import org.usfirst.frc.team5518.robot.subsystems.VisionTrack;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 	
 	private static final String AUTO_CHOOSER = "AUTONOMOUS MODE SELECTOR";
 	private static final String DEFAULT_AUTO = "Default Auto";
+	private static final String DISABLE_AUTO = "Disable Auto";
 	//private static final String LIFT_DRIVE_AUTO = "Lift and Drive Auto";	
 	private static final String PULL_DRIVE_AUTO = "Pull and Drive Auto";
 
@@ -42,6 +44,7 @@ public class Robot extends IterativeRobot {
 	public static final IntakeMech intakeMech = new IntakeMech();
 	public static final ArmLifter armLifter = new ArmLifter();
 	public static final Sensor sensor = new Sensor();
+	public static final VisionTrack visionTrack = new VisionTrack();
 	
 	public static OI oi;
 	
@@ -60,10 +63,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(intakeMech);
 		SmartDashboard.putData(armLifter);
 		SmartDashboard.putData(sensor);
+		SmartDashboard.putData(visionTrack);
 		
 		//	Beginning of Autonomous Mode Code	
         chooser = new SendableChooser();
         chooser.addDefault(DEFAULT_AUTO, new DefaultAuto());
+        chooser.addDefault(DISABLE_AUTO, null);
         //chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
         chooser.addObject(PULL_DRIVE_AUTO, new PullAndDrive());
         SmartDashboard.putData(AUTO_CHOOSER, chooser);
@@ -103,6 +108,9 @@ public class Robot extends IterativeRobot {
 		/*case LIFT_DRIVE_AUTO:
 			autonomousCmd = new LiftAndDrive();
 			break;*/
+		case DISABLE_AUTO:
+			autonomousCmd = null;
+			break;
 		case DEFAULT_AUTO:
 		default:
 			autonomousCmd = new DefaultAuto();

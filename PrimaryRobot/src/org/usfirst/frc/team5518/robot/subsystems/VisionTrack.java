@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
+import org.usfirst.frc.team5518.robot.commands.visiontrack.StreamCam;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -12,7 +14,7 @@ public class VisionTrack extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new StreamCam());
     }
     
     /**
@@ -20,6 +22,8 @@ public class VisionTrack extends Subsystem {
      * @return Return current system time in milliseconds.
      */
      public long init() {
+    	 Runtime.getRuntime().exec("");
+    	 
     	 return System.currentTimeMillis();
      }
      
