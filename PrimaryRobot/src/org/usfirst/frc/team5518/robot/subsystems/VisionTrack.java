@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team5518.robot.commands.visiontrack.StreamCam;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,7 +24,11 @@ public class VisionTrack extends Subsystem {
      * @return Return current system time in milliseconds.
      */
      public long init() {
-    	 Runtime.getRuntime().exec("");
+    	/*try {
+			Runtime.getRuntime().exec("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
     	 
     	 return System.currentTimeMillis();
      }
