@@ -69,10 +69,12 @@ public class DriveTrain extends Subsystem {
      * @param fineCtrl If set, decrease the sensitivity at low speeds.
      */
     public void drive(double[] axis, boolean fineCtrl) {
-    	if (btnInvertState)
+    	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
+    	
+    	/*if (btnInvertState)
     		robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
     	else
-    		invert(axis, fineCtrl);
+    		invert(axis, fineCtrl);*/
     }
     
     /**

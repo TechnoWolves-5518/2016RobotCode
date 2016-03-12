@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5518.robot.commands.armlifter;
+package org.usfirst.frc.team5518.robot.commands.hooker;
 
 import org.usfirst.frc.team5518.robot.Robot;
 
@@ -11,17 +11,17 @@ public class CloseCylinders extends Command {
 
     public CloseCylinders() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.armLifter);
+        requires(Robot.hooker);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.armLifter.init();
+    	Robot.hooker.init();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.armLifter.closeCylinders();
+    	Robot.hooker.closeCylinders();
     }
 
     // Make this return true when this Command no longer needs to run execute()

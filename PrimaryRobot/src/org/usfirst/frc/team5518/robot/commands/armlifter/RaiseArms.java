@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class RaiseArms extends Command {
 	
-	private double[] travel;
+	private double[] potVals;
 
     public RaiseArms() {
         // Use requires() here to declare subsystem dependencies
@@ -19,24 +19,20 @@ public class RaiseArms extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.armLifter.init();
-    	travel = Robot.armLifter.getTravel();
+    	potVals = Robot.armLifter.getTravel();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	travel = Robot.armLifter.getTravel();
-    	
-    	double[] axis = new double[2];
-    	axis[0] = 0.75; // left arm speed
-    	axis[1] = 0.75; // right arm speed
-    	Robot.armLifter.moveArms(axis);
+    	potVals = Robot.armLifter.getPotVals();
+    	Robot.armLifter.moveArms(-0.75, -0.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean leftArm = travel[0] >= 
+    	boolean leftArm = potVals[0] >= 
     			((Robot.armLifter.ARM_LEFT_MAX - Robot.armLifter.ARM_LEFT_MIN)/2);
-    	boolean rightArm = travel[1] >=
+    	boolean rightArm = potVals[1] >=
     			((Robot.armLifter.ARM_RIGHT_MAX - Robot.armLifter.ARM_RIGHT_MIN)/2);
     	
         return leftArm && rightArm;

@@ -1,10 +1,7 @@
 package org.usfirst.frc.team5518.robot;
 
-import org.usfirst.frc.team5518.robot.commands.armlifter.CloseCylinders;
-import org.usfirst.frc.team5518.robot.commands.armlifter.OpenCylinders;
-import org.usfirst.frc.team5518.robot.commands.drivetrain.FineWheelCtrl;
-import org.usfirst.frc.team5518.robot.commands.drivetrain.InvertWheelCtrl;
-import org.usfirst.frc.team5518.robot.commands.shooter.IntakeMtrDir;
+import org.usfirst.frc.team5518.robot.commands.hooker.CloseCylinders;
+import org.usfirst.frc.team5518.robot.commands.hooker.OpenCylinders;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -74,7 +71,7 @@ public class OI {
     	btns1[4].toggleWhenPressed(new IntakeMtrDir()); // xbox 2 LB btn
     	*/
     	
-    	SmartDashboard.putData("Invert Wheel Ctrl", new InvertWheelCtrl());
+    	//SmartDashboard.putData("Invert Wheel Ctrl", new InvertWheelCtrl());
     	//SmartDashboard.putData("Fine Wheel Ctrl", new FineWheelCtrl());
     }
     

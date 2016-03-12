@@ -6,6 +6,7 @@ import org.usfirst.frc.team5518.robot.commands.autonomous.LiftAndDrive;
 import org.usfirst.frc.team5518.robot.commands.autonomous.PullAndDrive;
 import org.usfirst.frc.team5518.robot.subsystems.ArmLifter;
 import org.usfirst.frc.team5518.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5518.robot.subsystems.Hooker;
 import org.usfirst.frc.team5518.robot.subsystems.IntakeMech;
 /*	Beginning of Autonomous Mode Code	
 import org.usfirst.frc.team5518.robot.commands.autonomous.Autonomous;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter = new Shooter();
 	public static final IntakeMech intakeMech = new IntakeMech();
 	public static final ArmLifter armLifter = new ArmLifter();
+	public static final Hooker hooker = new Hooker();
 	public static final Sensor sensor = new Sensor();
 	public static final VisionTrack visionTrack = new VisionTrack();
 	
@@ -62,6 +64,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(shooter);
 		SmartDashboard.putData(intakeMech);
 		SmartDashboard.putData(armLifter);
+		SmartDashboard.putData(hooker);
 		SmartDashboard.putData(sensor);
 		SmartDashboard.putData(visionTrack);
 		

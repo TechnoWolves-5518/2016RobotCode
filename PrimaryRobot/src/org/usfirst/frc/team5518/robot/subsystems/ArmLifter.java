@@ -26,28 +26,25 @@ public class ArmLifter extends Subsystem {
 	private static final double LEFT_POT_SHIFT = 0;
 	private static final double RIGHT_POT_SHIFT = 0;
 	
-	public static double ARM_LEFT_MIN = 0.11; // 1.75  .08
-	public static double ARM_LEFT_MAX = 12.0; // 13.50 12.0
-	public static double ARM_RIGHT_MIN = 0.034; // 1.60  .04
-	public static double ARM_RIGHT_MAX = 11.50; // 13.60  11.50
+	/*public static double ARM_LEFT_MIN = 0.50; // 1.75  .08 .246
+	public static double ARM_LEFT_MAX = 11.855; // 13.50 12.0 11.75
+	public static double ARM_RIGHT_MIN = 4.05; // 1.60  .04 0.034 1.9465
+	public static double ARM_RIGHT_MAX = 13.685; // 13.60  11.50 13.645*/
+	
+	public static double ARM_LEFT_MIN = 3500;
+	public static double ARM_LEFT_MAX = 480;
+	public static double ARM_RIGHT_MIN = 3550;
+	public static double ARM_RIGHT_MAX = 450;
 	
 	VictorSP leftMtr;
 	VictorSP rightMtr;
 	Potentiometer leftPot;
 	Potentiometer rightPot;
 	
-	DoubleSolenoid solenoid;
-	Compressor compressor;
-	
 	/*PIDController leftArm;
 	PIDController rightArm;*/
     
     public ArmLifter() {
-    	compressor = new Compressor(RobotMap.COMPRESSOR);
-    	
-    	solenoid = new DoubleSolenoid(RobotMap.SOLENOID_FORWARD,
-    			RobotMap.SOLENOID_REVERSE);
-    	
     	leftMtr = new VictorSP(RobotMap.ARM_LEFT_MTR);
     	rightMtr = new VictorSP(RobotMap.ARM_RIGHT_MTR);
     	
@@ -55,8 +52,6 @@ public class ArmLifter extends Subsystem {
     			POT_FULL, LEFT_POT_SHIFT);
     	rightPot = new AnalogPotentiometer(RobotMap.ANALOG_RIGHT_POT,
     			POT_FULL, RIGHT_POT_SHIFT);
-    	
-    	solenoid.set(Value.kOff);
     	
     	leftMtr.enableDeadbandElimination(true);
     	rightMtr.enableDeadbandElimination(true);
@@ -77,30 +72,14 @@ public class ArmLifter extends Subsystem {
 	 * 
 	 */
 	public void init() {
-		compressor.setClosedLoopControl(true); // turn on the compressor
-		solenoid.set(Value.kOff); // set solenoid state to off
 	}
 	
 	/**
 	 * 
 	 */
-	public void moveArms(double[] axis) {
-		leftMtr.set(armInput(axis[0],true));
-		rightMtr.set(armInput(axis[1],false));
-	}
-	
-	/**
-	 * Open the pneumatic cylinders
-	 */
-	public void openCylinders() {
-		solenoid.set(Value.kForward); // set solenoid state to forward
-	}
-	
-	/**
-	 * Close the pneumatic cylinders
-	 */
-	public void closeCylinders() {
-		solenoid.set(Value.kReverse); // set solenoid state to reverse
+	public void moveArms(double leftAxis, double rightAxis) {
+		leftMtr.set(armInput(leftAxis,true));
+		rightMtr.set(armInput(rightAxis,false));
 	}
 	
 	/**
@@ -131,9 +110,6 @@ public class ArmLifter extends Subsystem {
 	 * 
 	 */
 	public void log() {
-		SmartDashboard.putBoolean(SUBSYSTEM + " Compressor Status: ", compressor.enabled());
-		SmartDashboard.putBoolean(SUBSYSTEM + " Pressure Switch: ", compressor.getPressureSwitchValue());
-		
 		SmartDashboard.putNumber(SUBSYSTEM + " Left Pot: ", leftPot.get());
 		SmartDashboard.putNumber(SUBSYSTEM + " Right Pot: ", rightPot.get());
 		SmartDashboard.putNumber(SUBSYSTEM + " Left Arm Travel: ", calcTravel(leftPot.get()));
@@ -166,12 +142,12 @@ public class ArmLifter extends Subsystem {
 		
 		if (left) {
 			// check if left pot/arm are in between limits
-			aboveMin = false;//(calcTravel(leftPot.get()) > ARM_LEFT_MIN); 
-			belowMax = false;//(calcTravel(leftPot.get()) < ARM_LEFT_MAX);
+			aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
+			belowMax = !(leftPot.get() < ARM_LEFT_MAX);
 		} else {
 			// check if right pot/arm are in between limits
-			aboveMin = false;//(calcTravel(rightPot.get()) > ARM_RIGHT_MIN); 
-			belowMax = false;//(calcTravel(rightPot.get()) < ARM_RIGHT_MAX); 
+			aboveMin = !(leftPot.get() > ARM_RIGHT_MIN); 
+			belowMax = !(leftPot.get() < ARM_RIGHT_MAX); 
 		}
 		
 		/*

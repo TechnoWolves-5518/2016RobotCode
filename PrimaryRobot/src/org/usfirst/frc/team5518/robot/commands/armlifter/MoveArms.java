@@ -22,11 +22,9 @@ public class MoveArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double[] axis = new double[2];
-    	axis[0] = Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY);
-    	axis[1] = Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY);
-    	
-    	Robot.armLifter.moveArms(axis);
+    	Robot.armLifter.moveArms(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),
+    			Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY));
+    			//Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY));
     }
 
     // Make this return true when this Command no longer needs to run execute()
