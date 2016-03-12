@@ -70,9 +70,9 @@ public class DriveTrain extends Subsystem {
      */
     public void drive(double[] axis, boolean fineCtrl) {
     	if (btnInvertState)
-    		invert(axis, fineCtrl);
-    	else
     		robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
+    	else
+    		invert(axis, fineCtrl);
     }
     
     /**

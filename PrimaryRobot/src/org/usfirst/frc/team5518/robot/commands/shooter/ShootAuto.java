@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ShootAuto extends Command {
 	
-	private static final double TOL_MILLISEC = 2.0;
+	private static final double TOL_MILLISEC = 2000;
 	private double time = 0;
 
     public ShootAuto() {

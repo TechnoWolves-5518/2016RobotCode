@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5518.robot.commands.armlifter;
 
 import org.usfirst.frc.team5518.robot.Robot;
+import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,7 +22,11 @@ public class MoveArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.armLifter.moveArms();
+    	double[] axis = new double[2];
+    	axis[0] = Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY);
+    	axis[1] = Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY);
+    	
+    	Robot.armLifter.moveArms(axis);
     }
 
     // Make this return true when this Command no longer needs to run execute()

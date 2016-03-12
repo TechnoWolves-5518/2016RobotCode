@@ -25,12 +25,13 @@ public class InvertWheelCtrl extends Command {
     	double[] axis = new double[2];
     	axis[0] = Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_LSTICKY);
     	axis[1] = Robot.oi.getAxis(RobotMap.JOYSTICK_ZERO, RobotMap.XBOX_RSTICKX);
+    	
     	Robot.driveTrain.drive(axis, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !Robot.driveTrain.toggleInvert();
+        return false; //!Robot.driveTrain.toggleInvert()
     }
 
     // Called once after isFinished returns true

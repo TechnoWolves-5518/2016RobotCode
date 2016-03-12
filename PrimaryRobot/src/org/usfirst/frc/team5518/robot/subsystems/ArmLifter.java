@@ -26,10 +26,10 @@ public class ArmLifter extends Subsystem {
 	private static final double LEFT_POT_SHIFT = 0;
 	private static final double RIGHT_POT_SHIFT = 0;
 	
-	private static double ARM_LEFT_MIN = 1.75;
-	private static double ARM_LEFT_MAX = 13.50;
-	private static double ARM_RIGHT_MIN = 1.60;
-	private static double ARM_RIGHT_MAX = 13.60;
+	public static double ARM_LEFT_MIN = 0.08; // 1.75
+	public static double ARM_LEFT_MAX = 12.0; // 13.50
+	public static double ARM_RIGHT_MIN = 0.04; // 1.60
+	public static double ARM_RIGHT_MAX = 11.50; // 13.60
 	
 	VictorSP leftMtr;
 	VictorSP rightMtr;
@@ -84,11 +84,9 @@ public class ArmLifter extends Subsystem {
 	/**
 	 * 
 	 */
-	public void moveArms() {
-		leftMtr.set(
-				armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),true));
-		rightMtr.set(
-				armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY),false));
+	public void moveArms(double[] axis) {
+		leftMtr.set(armInput(axis[0],true));
+		rightMtr.set(armInput(axis[1],false));
 	}
 	
 	/**
@@ -107,6 +105,30 @@ public class ArmLifter extends Subsystem {
 	
 	/**
 	 * 
+	 * @return
+	 */
+	public double[] getPotVals() {
+		double[] pot = new double[2];
+		pot[0] = leftPot.get();
+		pot[1] = rightPot.get();
+		
+		return pot;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public double[] getTravel() {
+		double[] travel = new double[2];
+		travel[0] = calcTravel(leftPot.get());
+		travel[1] = calcTravel(rightPot.get());
+		
+		return travel;
+	}
+	
+	/**
+	 * 
 	 */
 	public void log() {
 		SmartDashboard.putBoolean(SUBSYSTEM + " Compressor Status: ", compressor.enabled());
@@ -117,10 +139,10 @@ public class ArmLifter extends Subsystem {
 		SmartDashboard.putNumber(SUBSYSTEM + " Left Arm Travel: ", calcTravel(leftPot.get()));
 		SmartDashboard.putNumber(SUBSYSTEM + " Right Arm Travel: ", calcTravel(rightPot.get()));
 		
-		SmartDashboard.putNumber(SUBSYSTEM + "Arm Input left",
+		/*SmartDashboard.putNumber(SUBSYSTEM + "Arm Input left",
 				armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),true));
 		SmartDashboard.putNumber(SUBSYSTEM + "Arm Input right",
-				armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY),false));
+				armInput(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY),false));*/
 	}
 	
 	/**
