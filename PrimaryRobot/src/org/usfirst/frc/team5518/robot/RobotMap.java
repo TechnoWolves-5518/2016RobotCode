@@ -62,8 +62,8 @@ public class RobotMap {
     public static int ANALOG_RIGHT_POT = 0;
     
     // Limit Switches (DIO)
-    public static int DIO_LIMIT_RMIN = 5;
-    public static int DIO_LIMIT_RMAX = 6;
+    public static int DIO_LIMIT_RMIN = 4;
+    public static int DIO_LIMIT_RMAX = 5;
   
     // Analog Output
     public static int ANALOG_OUTPUT_0 = 0;
