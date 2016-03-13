@@ -88,7 +88,7 @@ public class ArmLifter extends Subsystem {
 	 * @param rightAxis
 	 */
 	public void moveArms(double leftAxis, double rightAxis) {
-		leftMtr.set(armInput(leftAxis,false));    //changed to false
+		leftMtr.set(armInput(leftAxis, true));
 		rightMtr.set(armInput(rightAxis, false));
 	}
 	
