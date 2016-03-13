@@ -46,6 +46,7 @@ public class ArmLifter extends Subsystem {
 	PIDController rightArm;*/
     
     public ArmLifter() {
+    	//Arm Motor Driver Object Definition
     	leftMtr = new VictorSP(RobotMap.ARM_LEFT_MTR);
     	rightMtr = new VictorSP(RobotMap.ARM_RIGHT_MTR);
     	
@@ -54,6 +55,7 @@ public class ArmLifter extends Subsystem {
     	rightPot = new AnalogPotentiometer(RobotMap.ANALOG_RIGHT_POT,
     			POT_FULL, RIGHT_POT_SHIFT);*/
     	
+    	//Define Max and min limit switches
     	leftMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMIN);
     	leftMaxLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMAX);
     	rightMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_RMAX);
@@ -86,7 +88,7 @@ public class ArmLifter extends Subsystem {
 	 * @param rightAxis
 	 */
 	public void moveArms(double leftAxis, double rightAxis) {
-		leftMtr.set(armInput(leftAxis,true));
+		leftMtr.set(armInput(leftAxis,false));    //changed to false
 		rightMtr.set(armInput(rightAxis, false));
 	}
 	
@@ -174,14 +176,14 @@ public class ArmLifter extends Subsystem {
 		
 		if (left) {
 			// check if left arm is in between limits
-			aboveMin = !leftMinLimit.get();
-			belowMax = !leftMaxLimit.get();
+			aboveMin = true;//!leftMinLimit.get();
+			belowMax = true;//!leftMaxLimit.get();
 			/*aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
 			belowMax = !(leftPot.get() < ARM_LEFT_MAX);*/
 		} else {
 			// check if right arm is in between limits
-			aboveMin = !rightMinLimit.get();
-			belowMax = !rightMaxLimit.get();
+			aboveMin = true;//!rightMinLimit.get();
+			belowMax = true;//!rightMaxLimit.get();
 			/*aboveMin = !(leftPot.get() > ARM_RIGHT_MIN); 
 			belowMax = !(leftPot.get() < ARM_RIGHT_MAX);*/
 		}
