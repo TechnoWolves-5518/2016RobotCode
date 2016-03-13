@@ -27,9 +27,7 @@ public class VisionTrack extends Subsystem {
      */
      public long init() {
     	try {
-			process = Runtime.getRuntime().exec("cd /home/admin/mjpg-streamer-182 && "
-					+ "export LD_LIBRARY_PATH=./ && "
-					+ "./mjpg_streamer -i 'input_uvc.so' -o 'output_http.so -w ./www'");
+			process = Runtime.getRuntime().exec("sh /home/admin/mjpg.sh");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

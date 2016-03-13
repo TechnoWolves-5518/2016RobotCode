@@ -23,7 +23,7 @@ public class MoveArms extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.armLifter.moveArms(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),
-    			Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY));
+    			Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY));
     			//Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY));
     }
 

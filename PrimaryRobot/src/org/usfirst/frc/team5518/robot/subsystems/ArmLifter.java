@@ -31,10 +31,10 @@ public class ArmLifter extends Subsystem {
 	public static double ARM_RIGHT_MIN = 4.05; // 1.60  .04 0.034 1.9465
 	public static double ARM_RIGHT_MAX = 13.685; // 13.60  11.50 13.645*/
 	
-	public static double ARM_LEFT_MIN = 3500;
-	public static double ARM_LEFT_MAX = 480;
-	public static double ARM_RIGHT_MIN = 3550;
-	public static double ARM_RIGHT_MAX = 450;
+	public static double ARM_LEFT_MIN = 3000;
+	public static double ARM_LEFT_MAX = 50;
+	public static double ARM_RIGHT_MIN = 2487;
+	public static double ARM_RIGHT_MAX = 30;
 	
 	VictorSP leftMtr;
 	VictorSP rightMtr;
@@ -142,12 +142,12 @@ public class ArmLifter extends Subsystem {
 		
 		if (left) {
 			// check if left pot/arm are in between limits
-			aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
-			belowMax = !(leftPot.get() < ARM_LEFT_MAX);
+			//aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
+			//belowMax = !(leftPot.get() < ARM_LEFT_MAX);
 		} else {
 			// check if right pot/arm are in between limits
-			aboveMin = !(leftPot.get() > ARM_RIGHT_MIN); 
-			belowMax = !(leftPot.get() < ARM_RIGHT_MAX); 
+			//aboveMin = !(leftPot.get() > ARM_RIGHT_MIN); 
+			//belowMax = !(leftPot.get() < ARM_RIGHT_MAX); 
 		}
 		
 		/*
