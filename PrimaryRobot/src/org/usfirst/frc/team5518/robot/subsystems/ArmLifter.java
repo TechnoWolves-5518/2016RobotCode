@@ -34,11 +34,11 @@ public class ArmLifter extends Subsystem {
 	
 	VictorSP leftMtr;
 	VictorSP rightMtr;
-	//Potentiometer leftPot;
+	Potentiometer leftPot;
 	//Potentiometer rightPot;
 	
-	DigitalInput leftMinLimit;
-	DigitalInput leftMaxLimit;
+	/*DigitalInput leftMinLimit;
+	DigitalInput leftMaxLimit;*/
 	DigitalInput rightMinLimit;
 	DigitalInput rightMaxLimit;
 	
@@ -50,14 +50,14 @@ public class ArmLifter extends Subsystem {
     	leftMtr = new VictorSP(RobotMap.ARM_LEFT_MTR);
     	rightMtr = new VictorSP(RobotMap.ARM_RIGHT_MTR);
     	
-    	/*leftPot = new AnalogPotentiometer(RobotMap.ANALOG_LEFT_POT,
+    	leftPot = new AnalogPotentiometer(RobotMap.ANALOG_LEFT_POT,
     			POT_FULL, LEFT_POT_SHIFT);
-    	rightPot = new AnalogPotentiometer(RobotMap.ANALOG_RIGHT_POT,
+    	/*rightPot = new AnalogPotentiometer(RobotMap.ANALOG_RIGHT_POT,
     			POT_FULL, RIGHT_POT_SHIFT);*/
     	
     	//Define Max and min limit switches
-    	leftMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMIN);
-    	leftMaxLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMAX);
+    	/*leftMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMIN);
+    	leftMaxLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMAX);*/
     	rightMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_RMAX);
     	rightMaxLimit = new DigitalInput(RobotMap.DIO_LIMIT_RMIN);
     	
@@ -108,30 +108,38 @@ public class ArmLifter extends Subsystem {
 		rightMtr.set(armInput(axis, false));
 	}
 	
-	/*public double getLeftPot() {
-		double[] pot = new double[2];
+	/**
+	 * 
+	 * @return
+	 */
+	public double getLeftPot() {
+		/*double[] pot = new double[2];
 		pot[0] = leftPot.get();
-		pot[1] = rightPot.get();
+		pot[1] = rightPot.get();*/
 		
 		return leftPot.get();
 	}
-	
-	public double getLeftTravel() {
-		double[] travel = new double[2];
-		travel[0] = calcTravel(leftPot.get());
-		travel[1] = calcTravel(rightPot.get());
-		
-		return calcTravel(leftPot.get());
-	}*/
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean isLeftArmExceeded() {
-		return leftMinLimit.get() ||
-				leftMaxLimit.get();
+	public double getLeftTravel() {
+		/*double[] travel = new double[2];
+		travel[0] = calcTravel(leftPot.get());
+		travel[1] = calcTravel(rightPot.get());	*/
+		
+		return calcTravel(leftPot.get());
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+//	public boolean isLeftArmExceeded() {
+//		return leftMinLimit.get() ||
+//				leftMaxLimit.get();
+//	}
 	
 	/**
 	 * 
@@ -149,10 +157,10 @@ public class ArmLifter extends Subsystem {
 		SmartDashboard.putBoolean(SUBSYSTEM + " Right Min Limit Switch: ", !rightMinLimit.get());
 		SmartDashboard.putBoolean(SUBSYSTEM + " Right Max Limit Switch: ", rightMaxLimit.get());
 		
-		/*SmartDashboard.putNumber(SUBSYSTEM + " Left Pot: ", leftPot.get());
-		SmartDashboard.putNumber(SUBSYSTEM + " Right Pot: ", rightPot.get());
+		SmartDashboard.putNumber(SUBSYSTEM + " Left Pot: ", leftPot.get());
+		//SmartDashboard.putNumber(SUBSYSTEM + " Right Pot: ", rightPot.get());
 		SmartDashboard.putNumber(SUBSYSTEM + " Left Arm Travel: ", calcTravel(leftPot.get()));
-		SmartDashboard.putNumber(SUBSYSTEM + " Right Arm Travel: ", calcTravel(rightPot.get()));*/
+		//SmartDashboard.putNumber(SUBSYSTEM + " Right Arm Travel: ", calcTravel(rightPot.get()));
 	}
 	
 	/**
@@ -176,10 +184,10 @@ public class ArmLifter extends Subsystem {
 		
 		if (left) {
 			// check if left arm is in between limits
-			aboveMin = true;//!leftMinLimit.get();
-			belowMax = true;//!leftMaxLimit.get();
-			/*aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
-			belowMax = !(leftPot.get() < ARM_LEFT_MAX);*/
+			/*aboveMin = !leftMinLimit.get();
+			belowMax = !leftMaxLimit.get();*/
+			aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
+			belowMax = !(leftPot.get() < ARM_LEFT_MAX);
 		} else {
 			// check if right arm is in between limits
 			aboveMin = true;//!rightMinLimit.get();

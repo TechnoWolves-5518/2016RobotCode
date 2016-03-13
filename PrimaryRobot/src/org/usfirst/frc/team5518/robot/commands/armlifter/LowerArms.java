@@ -26,7 +26,9 @@ public class LowerArms extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean leftArm = Robot.armLifter.isLeftArmExceeded();
+    	boolean leftArm = Robot.armLifter.getLeftPot()<=
+    			Robot.armLifter.ARM_LEFT_MIN;
+    	//    	boolean leftArm = Robot.armLifter.isLeftArmExceeded();
     	boolean rightArm = Robot.armLifter.isRightArmExceeded();
     			/*potVals[1] <=
     			((Robot.armLifter.ARM_RIGHT_MAX - Robot.armLifter.ARM_RIGHT_MIN)/4);*/
