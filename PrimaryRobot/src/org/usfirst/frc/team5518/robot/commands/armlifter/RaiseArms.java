@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class RaiseArms extends Command {
 	
-	private double leftPot;
-
     public RaiseArms() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.armLifter);
@@ -23,14 +21,12 @@ public class RaiseArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	leftPot = Robot.armLifter.getLeftPot();
     	Robot.armLifter.moveArms(-0.50, -0.50); // move both arms up at same speed
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean leftArm = leftPot >= 
-    			((Robot.armLifter.ARM_LEFT_MAX - Robot.armLifter.ARM_LEFT_MIN)/2);
+    	boolean leftArm = Robot.armLifter.isLeftArmExceeded();
     	boolean rightArm = Robot.armLifter.isRightArmExceeded();
     	
         return leftArm || rightArm;
