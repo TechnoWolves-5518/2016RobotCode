@@ -12,6 +12,7 @@ public class RobotMap {
 	public static int JOYSTICK_ONE = 1;
 	
 	// Xbox 360/One controller mapping
+	// controller axis
 	public static int XBOX_LSTICKX = 0;
 	public static int XBOX_LSTICKY = 1; 
 	public static int XBOX_RSTICKX = 4;
@@ -19,6 +20,7 @@ public class RobotMap {
 	public static int XBOX_LTRIGGER = 2;
 	public static int XBOX_RTRIGGER = 3;
 	
+	// controller buttons
 	public static int XBOX_YBUTTON = 4;
 	public static int XBOX_XBUTTON = 3;
 	public static int XBOX_ABUTTON = 1;
@@ -30,35 +32,40 @@ public class RobotMap {
 	public static int XBOX_START = 8;
 	public static int XBOX_BACK = 7;
 	
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
+	// Drive Train (PWM)
     public static int FRONT_LEFT_MTR = 5;
 	public static int REAR_LEFT_MTR = 1;
     public static int FRONT_RIGHT_MTR = 2;
     public static int REAR_RIGHT_MTR = 3;
     
+    // Special functions (PWM)
     public static int BTM_SHOOT_MTR = 4;
     public static int TOP_SHOOT_MTR = 0;
     public static int INTAKE_MTR = 7;
     
     public static int ARM_LEFT_MTR = 8;
     public static int ARM_RIGHT_MTR = 6;
-    public static int ANALOG_LEFT_POT = 1;
-    public static int ANALOG_RIGHT_POT = 0;
     
+    // Pneumatics (PCM}
     public static int COMPRESSOR = 0;
     public static int SOLENOID_FORWARD = 4;
     public static int SOLENOID_REVERSE = 5;
     
-    // If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    
+    // Ultrasonics (DIO)
     public static int FORWARD_ULTRASONIC_TRIG = 0;
     public static int FORWARD_ULTRASONIC_ECHO = 1;
     public static int BACKWARD_ULTRASONIC_TRIG = 2;
     public static int BACKWARD_ULTRASONIC_ECHO = 3;
     
-    // Analog Output Def
+    // Potentiometers (analog input)
+    public static int ANALOG_LEFT_POT = 1;
+    public static int ANALOG_RIGHT_POT = 0;
+    
+    // Limit Switches (DIO)
+    public static int DIO_LIMIT_RMIN = 5;
+    public static int DIO_LIMIT_RMAX = 6;
+  
+    // Analog Output
     public static int ANALOG_OUTPUT_0 = 0;
     public static int ANALOG_OUTPUT_1 = 1;
 }
