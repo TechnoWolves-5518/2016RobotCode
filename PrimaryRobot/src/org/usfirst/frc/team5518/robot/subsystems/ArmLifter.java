@@ -190,8 +190,8 @@ public class ArmLifter extends Subsystem {
 			belowMax = !(leftPot.get() < ARM_LEFT_MAX);
 		} else {
 			// check if right arm is in between limits
-			aboveMin = true;//!rightMinLimit.get();
-			belowMax = true;//!rightMaxLimit.get();
+			aboveMin = !rightMinLimit.get();
+			belowMax = !rightMaxLimit.get();
 			/*aboveMin = !(leftPot.get() > ARM_RIGHT_MIN); 
 			belowMax = !(leftPot.get() < ARM_RIGHT_MAX);*/
 		}
