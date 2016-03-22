@@ -24,7 +24,7 @@ public class IntakeMtr extends Command {
     protected void execute() {
     	Robot.intakeMech.intake(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE,
     			RobotMap.XBOX_LTRIGGER));
-    	Robot.intakeMech.toggleIntakeMtrDir();    
+    	//Robot.intakeMech.toggleIntakeMtrDir();    
     }
 
     // Make this return true when this Command no longer needs to run execute()

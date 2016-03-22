@@ -64,8 +64,8 @@ public class OI {
     	//btns0[0].toggleWhenPressed(new FineWheelCtrl()); // xbox 1 A btn
     	//btns0[1].toggleWhenPressed(new InvertWheelCtrl()); // xbox 1 X btn
     	
-    	btns1[0].toggleWhenPressed(new CloseCylinders()); // xbox 2 A btn
-    	btns1[1].toggleWhenPressed(new OpenCylinders()); // xbox 2 X btn
+    	btns1[0].toggleWhenPressed(new OpenCylinders()); // xbox 2 A btn
+    	btns1[1].toggleWhenPressed(new CloseCylinders()); // xbox 2 X btn
     	
     	/* Test Section (Comment out section in IntakeMtr.java to test)
     	btns1[4].toggleWhenPressed(new IntakeMtrDir()); // xbox 2 LB btn
