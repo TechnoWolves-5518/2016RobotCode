@@ -17,7 +17,7 @@ public class IntakeMech extends Subsystem {
 	
 	VictorSP intakeMtr;
 	
-	public boolean btnIntakeState = true;
+	public boolean btnState = true;
 	public boolean blnAlready = false;
 	
 	public IntakeMech() {
@@ -55,16 +55,19 @@ public class IntakeMech extends Subsystem {
     
     /**
      * 
+     * @param btnNum
      */
-    public void toggleIntakeMtrDir(){
-    	if (!blnAlready && (Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
-    			RobotMap.XBOX_LBUMBER))) {
+    public void toggleCtrl(int btnNum){
+    	boolean btn = Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
+    			btnNum);
+    	
+    	if (!blnAlready && btn) {
     		blnAlready = true;
-    		if (btnIntakeState)
-        		btnIntakeState = false;
+    		if (btnState)
+        		btnState = false;
         	else
-	        	btnIntakeState = true;
-	    } else if (!Robot.oi.getBtn(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LBUMBER)) {
+	        	btnState = true;
+	    } else if (!btn) {
 	    		blnAlready = false;
 	    }	
     }
@@ -81,7 +84,7 @@ public class IntakeMech extends Subsystem {
      * Log component values.
      */
     public void log() {
-    	SmartDashboard.putBoolean(SUBSYSTEM + " btnIntakeState: ", btnIntakeState);
+    	SmartDashboard.putBoolean(SUBSYSTEM + " btnIntakeState: ", btnState);
     	SmartDashboard.putBoolean(SUBSYSTEM + " blnAlready: ", blnAlready);
     	SmartDashboard.putNumber(SUBSYSTEM + "", intakeMtr.get());	
     }

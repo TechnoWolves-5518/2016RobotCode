@@ -24,6 +24,7 @@ public class MoveArms extends Command {
     protected void execute() {
     	Robot.armLifter.moveArms(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),
     			Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY));
+    	Robot.armLifter.toggleCtrl(RobotMap.XBOX_START);
     }
 
     // Make this return true when this Command no longer needs to run execute()

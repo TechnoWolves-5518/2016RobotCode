@@ -26,9 +26,10 @@ public class RaiseArms extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean leftArm = Robot.armLifter.getLeftPot()>=
-    			Robot.armLifter.ARM_LEFT_MAX;
-    	//boolean leftArm = Robot.armLifter.isLeftArmExceeded();
+    	/*boolean leftArm = Robot.armLifter.getLeftPot()>=
+    			Robot.armLifter.ARM_LEFT_MAX;*/
+    	
+    	boolean leftArm = Robot.armLifter.isLeftArmExceeded();
     	boolean rightArm = Robot.armLifter.isRightArmExceeded();
     	
         return leftArm || rightArm;

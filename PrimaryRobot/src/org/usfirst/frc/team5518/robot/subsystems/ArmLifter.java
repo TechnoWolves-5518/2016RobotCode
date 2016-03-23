@@ -1,13 +1,12 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
+import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
 import org.usfirst.frc.team5518.robot.commands.armlifter.MoveArms;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -19,8 +18,8 @@ public class ArmLifter extends Subsystem {
 	
 	private static final double POT_FULL = 3600;
 	private static final double POT_TRAVEL = 0.73;
-	private static final double LEFT_POT_SHIFT = 0;
-	//private static final double RIGHT_POT_SHIFT = 0;
+	/*private static final double LEFT_POT_SHIFT = 0;
+	private static final double RIGHT_POT_SHIFT = 0;*/
 	
 	/*public static double ARM_LEFT_MIN = 0.50; // 1.75  .08 .246
 	public static double ARM_LEFT_MAX = 11.855; // 13.50 12.0 11.75
@@ -34,30 +33,33 @@ public class ArmLifter extends Subsystem {
 	
 	VictorSP leftMtr;
 	VictorSP rightMtr;
-	Potentiometer leftPot;
-	//Potentiometer rightPot;
+	/*Potentiometer leftPot;
+	Potentiometer rightPot;*/
 	
-	/*DigitalInput leftMinLimit;
-	DigitalInput leftMaxLimit;*/
+	DigitalInput leftMinLimit;
+	DigitalInput leftMaxLimit;
 	DigitalInput rightMinLimit;
 	DigitalInput rightMaxLimit;
 	
 	/*PIDController leftArm;
 	PIDController rightArm;*/
+	
+	public boolean btnState = true;
+	public boolean blnAlready = false;
     
     public ArmLifter() {
     	//Arm Motor Driver Object Definition
     	leftMtr = new VictorSP(RobotMap.ARM_LEFT_MTR);
     	rightMtr = new VictorSP(RobotMap.ARM_RIGHT_MTR);
     	
-    	leftPot = new AnalogPotentiometer(RobotMap.ANALOG_LEFT_POT,
+    	/*leftPot = new AnalogPotentiometer(RobotMap.ANALOG_LEFT_POT,
     			POT_FULL, LEFT_POT_SHIFT);
-    	/*rightPot = new AnalogPotentiometer(RobotMap.ANALOG_RIGHT_POT,
+    	rightPot = new AnalogPotentiometer(RobotMap.ANALOG_RIGHT_POT,
     			POT_FULL, RIGHT_POT_SHIFT);*/
     	
     	//Define Max and min limit switches
-    	/*leftMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMIN);
-    	leftMaxLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMAX);*/
+    	leftMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMIN);
+    	leftMaxLimit = new DigitalInput(RobotMap.DIO_LIMIT_LMAX);
     	rightMinLimit = new DigitalInput(RobotMap.DIO_LIMIT_RMAX);
     	rightMaxLimit = new DigitalInput(RobotMap.DIO_LIMIT_RMIN);
     	
@@ -88,8 +90,13 @@ public class ArmLifter extends Subsystem {
 	 * @param rightAxis
 	 */
 	public void moveArms(double leftAxis, double rightAxis) {
-		leftMtr.set(armInput(leftAxis, true));
-		rightMtr.set(armInput(rightAxis, false));
+		if(!btnState) {
+			leftMtr.set(armInput(leftAxis, true));
+			rightMtr.set(armInput(rightAxis, false));
+		} else {
+			leftMtr.set(armInput(rightAxis, true));
+			rightMtr.set(armInput(leftAxis, false));
+		}
 	}
 	
 	/**
@@ -109,37 +116,56 @@ public class ArmLifter extends Subsystem {
 	}
 	
 	/**
+     * 
+     * @param btnNum
+     */
+    public void toggleCtrl(int btnNum){
+    	boolean btn = Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
+    			btnNum);
+    	
+    	if (!blnAlready && btn) {
+    		blnAlready = true;
+    		if (btnState)
+        		btnState = false;
+        	else
+	        	btnState = true;
+	    } else if (!btn) {
+	    		blnAlready = false;
+	    }	
+    }
+	
+	/**
 	 * 
 	 * @return
-	 */
+	 *//*
 	public double getLeftPot() {
-		/*double[] pot = new double[2];
+		double[] pot = new double[2];
 		pot[0] = leftPot.get();
-		pot[1] = rightPot.get();*/
+		pot[1] = rightPot.get();
 		
 		return leftPot.get();
 	}
 	
-	/**
+	*//**
 	 * 
 	 * @return
-	 */
+	 *//*
 	public double getLeftTravel() {
-		/*double[] travel = new double[2];
+		double[] travel = new double[2];
 		travel[0] = calcTravel(leftPot.get());
-		travel[1] = calcTravel(rightPot.get());	*/
+		travel[1] = calcTravel(rightPot.get());	
 		
 		return calcTravel(leftPot.get());
-	}
+	}*/
 	
 	/**
 	 * 
 	 * @return
 	 */
-//	public boolean isLeftArmExceeded() {
-//		return leftMinLimit.get() ||
-//				leftMaxLimit.get();
-//	}
+	public boolean isLeftArmExceeded() {
+		return leftMinLimit.get() ||
+				leftMaxLimit.get();
+	}
 	
 	/**
 	 * 
@@ -154,13 +180,15 @@ public class ArmLifter extends Subsystem {
 	 * 
 	 */
 	public void log() {
-		SmartDashboard.putBoolean(SUBSYSTEM + " Right Min Limit Switch: ", !rightMinLimit.get());
+		SmartDashboard.putBoolean(SUBSYSTEM + " Left Min Limit Switch: ", leftMinLimit.get());
+		SmartDashboard.putBoolean(SUBSYSTEM + " Left Max Limit Switch: ", leftMaxLimit.get());
+		SmartDashboard.putBoolean(SUBSYSTEM + " Right Min Limit Switch: ", rightMinLimit.get());
 		SmartDashboard.putBoolean(SUBSYSTEM + " Right Max Limit Switch: ", rightMaxLimit.get());
 		
-		SmartDashboard.putNumber(SUBSYSTEM + " Left Pot: ", leftPot.get());
-		//SmartDashboard.putNumber(SUBSYSTEM + " Right Pot: ", rightPot.get());
+		/*SmartDashboard.putNumber(SUBSYSTEM + " Left Pot: ", leftPot.get());
+		SmartDashboard.putNumber(SUBSYSTEM + " Right Pot: ", rightPot.get());
 		SmartDashboard.putNumber(SUBSYSTEM + " Left Arm Travel: ", calcTravel(leftPot.get()));
-		//SmartDashboard.putNumber(SUBSYSTEM + " Right Arm Travel: ", calcTravel(rightPot.get()));
+		SmartDashboard.putNumber(SUBSYSTEM + " Right Arm Travel: ", calcTravel(rightPot.get()));*/
 	}
 	
 	/**
@@ -184,10 +212,10 @@ public class ArmLifter extends Subsystem {
 		
 		if (left) {
 			// check if left arm is in between limits
-			/*aboveMin = !leftMinLimit.get();
-			belowMax = !leftMaxLimit.get();*/
-			aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
-			belowMax = !(leftPot.get() < ARM_LEFT_MAX);
+			aboveMin = !leftMinLimit.get();
+			belowMax = !leftMaxLimit.get();
+			/*aboveMin = !(leftPot.get() > ARM_LEFT_MIN); 
+			belowMax = !(leftPot.get() < ARM_LEFT_MAX);*/
 		} else {
 			// check if right arm is in between limits
 			aboveMin = !rightMinLimit.get();

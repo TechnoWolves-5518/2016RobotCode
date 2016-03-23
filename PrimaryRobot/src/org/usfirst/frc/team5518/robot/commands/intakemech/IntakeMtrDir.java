@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5518.robot.commands.intakemech;
 
 import org.usfirst.frc.team5518.robot.Robot;
+import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,7 +22,7 @@ public class IntakeMtrDir extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intakeMech.toggleIntakeMtrDir();
+    	Robot.intakeMech.toggleCtrl(RobotMap.XBOX_LBUMBER);
     }
 
     // Make this return true when this Command no longer needs to run execute()
