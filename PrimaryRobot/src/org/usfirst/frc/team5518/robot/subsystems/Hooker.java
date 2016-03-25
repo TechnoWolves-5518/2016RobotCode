@@ -34,9 +34,17 @@ public class Hooker extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void init() {
+    /**
+     * Called in the init method of
+     * associated commands of the subsystem.
+     * 
+     * @return Return current system time in milliseconds.
+     */
+    public long init() {
     	compressor.setClosedLoopControl(true); // turn on the compressor
 		solenoid.set(Value.kOff); // set solenoid state to off
+		
+		return System.currentTimeMillis();
     }
     
     /**

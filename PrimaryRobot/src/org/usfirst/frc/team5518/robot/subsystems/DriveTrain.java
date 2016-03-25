@@ -56,9 +56,10 @@ public class DriveTrain extends Subsystem {
     }
     
     /**
-     * Initialize all necessary components for subsystem
-     * and command
-     * @return Return system uptime in milliseconds
+     * Called in the init method of
+     * associated commands of the subsystem.
+     * 
+     * @return Return current system time in milliseconds.
      */
     public long init() {
     	return System.currentTimeMillis();

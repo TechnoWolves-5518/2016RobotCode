@@ -78,10 +78,14 @@ public class ArmLifter extends Subsystem {
         setDefaultCommand(new MoveArms());
     }
 
-	/**
-	 * 
-	 */
-	public void init() {
+    /**
+     * Called in the init method of
+     * associated commands of the subsystem.
+     * 
+     * @return Return current system time in milliseconds.
+     */
+	public long init() {
+		return System.currentTimeMillis();
 	}
 	
 	/**

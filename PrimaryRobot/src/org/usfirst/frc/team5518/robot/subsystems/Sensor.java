@@ -70,7 +70,10 @@ public class Sensor extends Subsystem {
     }
     
     /**
+     * Called in the init method of
+     * associated commands of the subsystem.
      * 
+     * @return Return current system time in milliseconds.
      */
     public long init() {
     	/*gyro.reset();
