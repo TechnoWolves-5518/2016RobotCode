@@ -3,6 +3,7 @@ package org.usfirst.frc.team5518.robot.subsystems;
 import java.io.IOException;
 
 import org.usfirst.frc.team5518.robot.Robot;
+import org.usfirst.frc.team5518.robot.commands.visiontrack.StreamCam;
 import org.usfirst.frc.team5518.robot.commands.visiontrack.TargetCompute;
 
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
@@ -26,7 +27,7 @@ public class VisionTrack extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new TargetCompute());
+        setDefaultCommand(new StreamCam());
     }
     
     /**
@@ -56,7 +57,7 @@ public class VisionTrack extends Subsystem {
       */
      public void targetCompute() {
     	 // get the table GRIP outputs to from NetworkTables
-    	 table = NetworkTable.getTable("GRIP/myContoursReport");
+    	 /*table = NetworkTable.getTable("GRIP/myContoursReport");
     	 
     	 // extract the center point of the target found by GRIP
     	 double centerX = table.getNumberArray("centerX", defaultVals)[0];
@@ -72,7 +73,7 @@ public class VisionTrack extends Subsystem {
     	 
     	 // rumble the controller if the target is aligned
     	 if (isAlignedX && isAlignedY)
-    		 Robot.oi.setRumble(RumbleType.kRightRumble, 0.75f);
+    		 Robot.oi.setRumble(RumbleType.kRightRumble, 0.75f);*/
      }
      
      /**

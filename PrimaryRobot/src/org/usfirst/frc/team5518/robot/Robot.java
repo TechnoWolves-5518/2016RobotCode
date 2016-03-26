@@ -158,7 +158,7 @@ public class Robot extends IterativeRobot {
 			public void run() {
 				driveTrain.log();
 		        shooter.log();
-		        armLifter.log();
+		        //armLifter.log();
 		        sensor.log();
 				intakeMech.log();
 			}
