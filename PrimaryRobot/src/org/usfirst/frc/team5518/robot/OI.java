@@ -90,13 +90,43 @@ public class OI {
     
     /**
      * 
-     * @param idx
-     * @param btn
+     * @param idx Controller number of specified controller from Driver Station
+     * @param btn Specified button number of control from respective controller
      * @return
      */
     public boolean getBtn(int idx, int btn) {
     	boolean rawBtn = ctrlr[idx].getRawButton(btn);
     	return rawBtn;
+    }
+    
+    /**
+     * 
+     * @param idx Controller number of specified controller from Driver Station
+     * @param type
+     * @param value
+     */
+    public void setRumble(int idx, Joystick.RumbleType type, float value) {
+    	ctrlr[idx].setRumble(type, value);
+    }
+    
+    /**
+     * 
+     * @param type
+     * @param value
+     */
+    public void setRumble(Joystick.RumbleType type, float value) {
+    	for (Joystick stick : ctrlr) {
+    		stick.setRumble(type, value);
+    	}
+    }
+    
+    /**
+     * 
+     * @param idx Controller number of specified controller from Driver Station
+     * @return
+     */
+    public boolean isXbox(int idx) {
+    	return ctrlr[idx].getIsXbox();
     }
     
 }

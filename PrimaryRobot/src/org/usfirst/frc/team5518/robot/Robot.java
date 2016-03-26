@@ -4,6 +4,7 @@ package org.usfirst.frc.team5518.robot;
 import org.usfirst.frc.team5518.robot.commands.autonomous.DefaultAuto;
 import org.usfirst.frc.team5518.robot.commands.autonomous.LiftAndDrive;
 import org.usfirst.frc.team5518.robot.commands.autonomous.PullAndDrive;
+import org.usfirst.frc.team5518.robot.commands.visiontrack.StreamCam;
 import org.usfirst.frc.team5518.robot.subsystems.ArmLifter;
 import org.usfirst.frc.team5518.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5518.robot.subsystems.Hooker;
@@ -59,6 +60,8 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	new StreamCam().start();
+    	
 		oi = new OI();
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(shooter);
@@ -142,8 +145,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-        //if (autonomousCommand != null) autonomousCommand.cancel();   //This line makes sure that autonomous stops runing when teleop start running
-    	sensor.init();
+        if (autonomousCmd != null) autonomousCmd.cancel();   //This line makes sure that autonomous stops runing when teleop start running
     }
 
     /**
