@@ -23,8 +23,8 @@ public class Shoot extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double[] speeds = new double[2];
-    	speeds[0] = 1;
-    	speeds[1] = 1;
+    	speeds[0] = Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RTRIGGER);
+    	speeds[1] = Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RTRIGGER);
     	
     	Robot.shooter.shoot(speeds);
     }
