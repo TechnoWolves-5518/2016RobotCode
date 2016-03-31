@@ -40,6 +40,9 @@ public class Robot extends IterativeRobot {
 	
 	private Joystick stick;
 	
+	public boolean btnState = true;
+	public boolean blnAlready = false;
+	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -85,10 +88,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	cams.get(currCam).getImage(frame);
-   	 CameraServer.getInstance().setImage(frame);
+    	CameraServer.getInstance().setImage(frame);
    	 
-   	 if (stick.getRawButton(8))
-   		 switchCamera();
+    	if (btnState)
+    		switchCamera();
+    	
+    	toggleCtrl(8);
     }
     
     /**
@@ -102,14 +107,17 @@ public class Robot extends IterativeRobot {
      */
     public void switchCamera(){
     	try{
-    		cam.stopCapture();
-    		cam.closeCamera();
-    		currCam++;
-    		currCam %= cams.size();
-    		cam = cams.get(currCam);
-    		cam.openCamera();
-    		cam.startCapture();
-    		Thread.sleep(SLEEP_TIME);
+    		new Runnable() {
+				public void run() {
+					cam.stopCapture();
+		    		cam.closeCamera();
+		    		currCam++;
+		    		currCam %= cams.size();
+		    		cam = cams.get(currCam);
+		    		cam.openCamera();
+		    		cam.startCapture();
+				}
+			}.run();
     	}catch(Exception e){
     		e.printStackTrace();
     	}
@@ -124,6 +132,24 @@ public class Robot extends IterativeRobot {
     	temp.setFPS(MAX_FPS);
     	cams.add(temp);
     	temp = null;
+    }
+    
+    /**
+     * 
+     * @param btnNum
+     */
+    public void toggleCtrl(int btnNum){
+    	boolean btn = stick.getRawButton(btnNum);
+    	
+    	if (!blnAlready && btn) {
+    		blnAlready = true;
+    		if (btnState)
+        		btnState = false;
+        	else
+	        	btnState = true;
+	    } else if (!btn) {
+	    		blnAlready = false;
+	    }	
     }
     
 }
