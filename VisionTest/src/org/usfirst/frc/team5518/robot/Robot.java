@@ -91,7 +91,9 @@ public class Robot extends IterativeRobot {
     	CameraServer.getInstance().setImage(frame);
    	 
     	if (btnState)
-    		switchCamera();
+    		setCam(1);
+    	else
+    		setCam(0);
     	
     	toggleCtrl(8);
     }
@@ -100,6 +102,27 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    }
+    
+    /**
+     * 
+     * @param cam
+     */
+    public void setCam(int camNum) {
+    	try{
+    		new Runnable() {
+				public void run() {
+					cam.stopCapture();
+		    		cam.closeCamera();
+		    		currCam = camNum;
+		    		cam = cams.get(camNum);
+		    		cam.openCamera();
+		    		cam.startCapture();
+				}
+			}.run();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
     
     /**
@@ -129,7 +152,7 @@ public class Robot extends IterativeRobot {
      */
     private void addCamera(String camName){
     	USBCamera temp = new USBCamera(camName);
-    	temp.setFPS(MAX_FPS);
+    	//temp.setFPS(MAX_FPS);
     	cams.add(temp);
     	temp = null;
     }
