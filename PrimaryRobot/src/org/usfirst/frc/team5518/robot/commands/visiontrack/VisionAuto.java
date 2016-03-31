@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TargetComputeAuto extends Command {
+public class VisionAuto extends Command {
 
-    public TargetComputeAuto() {
+    public VisionAuto() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.visionTrack);
     }
@@ -21,7 +21,7 @@ public class TargetComputeAuto extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.visionTrack.targetComputeAuto();
+    	Robot.visionTrack.visionAuto();
     }
 
     // Make this return true when this Command no longer needs to run execute()

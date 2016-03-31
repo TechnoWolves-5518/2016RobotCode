@@ -105,44 +105,26 @@ public class Robot extends IterativeRobot {
     }
     
     /**
-     * 
-     * @param cam
+     * Change output camera
+     * @param cam Index of camera in ArrayList
      */
     public void setCam(int camNum) {
-    	try{
-    		new Runnable() {
+    	if (camNum != currCam) {
+			new Runnable() {
 				public void run() {
-					cam.stopCapture();
-		    		cam.closeCamera();
-		    		currCam = camNum;
-		    		cam = cams.get(camNum);
-		    		cam.openCamera();
-		    		cam.startCapture();
+					try {
+						cam.stopCapture();
+			    		cam.closeCamera();
+			    		currCam = camNum;
+			    		cam = cams.get(camNum);
+			    		cam.openCamera();
+			    		cam.startCapture();
+			    		Thread.sleep(500);
+					} catch (Exception e) {
+						//e.printStackTrace();
+					}
 				}
 			}.run();
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
-    }
-    
-    /**
-     * Switch to the next camera in our ArrayList
-     */
-    public void switchCamera(){
-    	try{
-    		new Runnable() {
-				public void run() {
-					cam.stopCapture();
-		    		cam.closeCamera();
-		    		currCam++;
-		    		currCam %= cams.size();
-		    		cam = cams.get(currCam);
-		    		cam.openCamera();
-		    		cam.startCapture();
-				}
-			}.run();
-    	}catch(Exception e){
-    		e.printStackTrace();
     	}
     }
     

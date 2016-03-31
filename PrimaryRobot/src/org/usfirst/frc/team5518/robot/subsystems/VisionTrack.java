@@ -92,19 +92,22 @@ public class VisionTrack extends Subsystem {
       * 
       */
      public void streamCamNi() {
-    	 cams.get(currCam).getImage(frame);
-    	 CameraServer.getInstance().setImage(frame);
+    	cams.get(currCam).getImage(frame);
+     	CameraServer.getInstance().setImage(frame);
     	 
-    	 /*if (Robot.oi.getBtn(RobotMap.JOYSTICK_ZERO,
-    			 RobotMap.XBOX_START))
-    		 switchCamera();*/
+     	if (btnState)
+     		setCam(1);
+     	else
+     		setCam(0);
+    	 
+    	 toggleCtrl(RobotMap.XBOX_START);
      }
      
      /**
       * 
       * @param btnNum
       */
-     public void toggleCtrl(int btnNum){
+     private void toggleCtrl(int btnNum){
      	boolean btn = Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
      			btnNum);
      	
@@ -120,21 +123,58 @@ public class VisionTrack extends Subsystem {
      }
      
      /**
-      * Switch to the next camera in our ArrayList
+      * Change output camera
+      * @param cam Index of camera in ArrayList
       */
-     public void switchCamera(){
-     	try{
-     		cam.stopCapture();
-     		cam.closeCamera();
-     		currCam++;
-     		currCam %= cams.size();
-     		cam = cams.get(currCam);
-     		cam.openCamera();
-     		cam.startCapture();
-     		Thread.sleep(SLEEP_TIME);
-     	}catch(Exception e){
-     		e.printStackTrace();
+     private void setCam(int camNum) {
+     	if (camNum != currCam) {
+ 			new Runnable() {
+ 				public void run() {
+ 					try {
+ 						cam.stopCapture();
+ 			    		cam.closeCamera();
+ 			    		currCam = camNum;
+ 			    		cam = cams.get(camNum);
+ 			    		cam.openCamera();
+ 			    		cam.startCapture();
+ 			    		Thread.sleep(500);
+ 					} catch (Exception e) {
+ 						//e.printStackTrace();
+ 					}
+ 				}
+ 			}.run();
      	}
+     }
+     
+     /**
+      * 
+      */
+     public void visionAuto() {
+     }
+     
+     /**
+      * 
+      */
+     public void log() {
+    	 
+     }
+     
+     /**
+      * 
+      */
+     public void end() {
+    	 process.destroy();
+     }
+     
+     /**
+      * Adds the camera to our list to switch between and sets the FPS max
+      * @param camName The name of the camera
+      */
+     private void addCamera(String camName){
+     	USBCamera temp = new USBCamera(camName);
+     	//temp.setFPS(MAX_FPS);
+     	cams.add(temp);
+     	temp = null;
      }
      
      /**
@@ -161,36 +201,5 @@ public class VisionTrack extends Subsystem {
     		 Robot.oi.setRumble(RumbleType.kRightRumble, 0.75f);*/
      }
      
-     /**
-      * 
-      */
-     public void targetComputeAuto() {
-     }
-     
-     /**
-      * 
-      */
-     public void log() {
-    	 
-     }
-     
-     /**
-      * 
-      */
-     public void end() {
-    	 process.destroy();
-     }
-     
-     /**
-      * Adds the camera to our list to switch between and sets the FPS max
-      * @param camName The name of the camera
-      */
-     private void addCamera(String camName){
-     	USBCamera temp = new USBCamera(camName);
-     	temp.setFPS(MAX_FPS);
-     	cams.add(temp);
-     	temp = null;
-     }
-    
 }
 
