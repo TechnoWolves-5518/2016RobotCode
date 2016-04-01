@@ -36,6 +36,7 @@ public class VisionTrack extends Subsystem {
 	private static final double[] defaultVals = new double[0];
 	
 	private Process process;
+	private Process process2;
 	private NetworkTable table;
 	
 	private ArrayList<USBCamera> cams; // The list of all attached cameras
@@ -82,7 +83,7 @@ public class VisionTrack extends Subsystem {
      public void streamCam() {
     	 try {
  			process = Runtime.getRuntime().exec("sh /home/admin/mjpg.sh");
- 			Runtime.getRuntime().exec("sh /home/admin/mjpg2.sh");
+ 			process2 = Runtime.getRuntime().exec("sh /home/admin/mjpg2.sh");
  		} catch (IOException e) {
  			//e.printStackTrace();
  		}
@@ -164,6 +165,7 @@ public class VisionTrack extends Subsystem {
       */
      public void end() {
     	 process.destroy();
+    	 process2.destroy();
      }
      
      /**
