@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  *
  */
 public class VisionTrack extends Subsystem {
-	
+	/*
 	private static final int CAM_WIDTH = 640;
 	private static final int CAM_HEIGHT = 480;
 	private static final int MAX_FPS = 15; // The maximum fps for all of the cameras
@@ -34,7 +34,7 @@ public class VisionTrack extends Subsystem {
 	private static final double MARGIN_Y = CAM_HEIGHT*0.05;
 	
 	private static final double[] defaultVals = new double[0];
-	
+	*/
 	private Process process;
 	private Process process2;
 	/*private NetworkTable table;

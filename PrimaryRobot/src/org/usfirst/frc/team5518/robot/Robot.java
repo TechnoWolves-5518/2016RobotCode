@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	//visionTrack.streamCam(); 
+    	visionTrack.streamCam(); 
     	
 		oi = new OI();
 		SmartDashboard.putData(driveTrain);
