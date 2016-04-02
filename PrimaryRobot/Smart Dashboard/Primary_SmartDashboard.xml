@@ -1,5 +1,58 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="IntakeMech" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1643" y="820"/>
+		<height>26</height>
+	</widget>
+	<widget field="IntakeMech blnAlready: " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1563" y="850"/>
+	</widget>
+	<widget field="IntakeMech btnIntakeState: " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1542" y="883"/>
+	</widget>
+	<widget field="Sensor Backward Ultrasonic Analog Voltage " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="8" y="758"/>
+	</widget>
+	<widget field="Sensor Forward Ultrasonic Analog Voltage " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="17" y="730"/>
+	</widget>
+	<widget field="Sensor Backward Ultrasonic: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="115" y="788"/>
+	</widget>
+	<widget field="Sensor Forward Ultrasonic: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="125" y="824"/>
+	</widget>
+	<widget field="Shooter" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1670" y="533"/>
+	</widget>
+	<widget field="DriveTrain RR Motor: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1576" y="753"/>
+	</widget>
+	<widget field="DriveTrain FR Motor: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1578" y="719"/>
+	</widget>
+	<widget field="DriveTrain RL Motor: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1573" y="596"/>
+	</widget>
+	<widget field="DriveTrain FL Motor: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1574" y="564"/>
+	</widget>
+	<widget field="Sensor" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="180" y="691"/>
+	</widget>
+	<widget field="Hooker" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="1676" y="627"/>
+	</widget>
+	<widget field="AUTONOMOUS MODE SELECTOR" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1688" y="400"/>
+	</widget>
+	<widget field="DriveTrain" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="1654" y="688"/>
+	</widget>
+	<widget field="ArmLifter" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="1662" y="659"/>
+		<height>26</height>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>
