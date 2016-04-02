@@ -171,8 +171,13 @@ public class VisionTrack extends Subsystem {
       * 
       */
      public void end() {
-    	 process.destroy();
-    	 process2.destroy(); 
+    	 try {
+			Runtime.getRuntime().exec("pskill -f './mjpg-streamer'");
+			process.destroy();
+	    	 process2.destroy();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
      }
      
      /**
@@ -186,10 +191,8 @@ public class VisionTrack extends Subsystem {
      	temp = null;
      }*/
      
-     /**
-      * 
-      */
-     public void targetCompute() {
+     
+     //public void targetCompute() {
     	 // get the table GRIP outputs to from NetworkTables
     	 /* Need to Figure  out/ May not be needed anymore
     	  * table = NetworkTable.getTable("GRIP/myContoursReport");
@@ -209,7 +212,7 @@ public class VisionTrack extends Subsystem {
     	 // rumble the controller if the target is aligned
     	 if (isAlignedX && isAlignedY)
     		 Robot.oi.setRumble(RumbleType.kRightRumble, 0.75f);*/
-     }
+     //}
      
 }
 

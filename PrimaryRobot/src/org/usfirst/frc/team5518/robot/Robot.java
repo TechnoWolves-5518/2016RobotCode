@@ -37,9 +37,10 @@ public class Robot extends IterativeRobot {
 	private static final String AUTO_CHOOSER = "AUTONOMOUS MODE SELECTOR";
 	private static final String DEFAULT_AUTO = "Default Auto";
 	private static final String DISABLE_AUTO = "Disable Auto";
-	//private static final String LIFT_DRIVE_AUTO = "Lift and Drive Auto";	
+	private static final String PORTCULLIS_AUTO = "Portcullis Auto";
+	/*private static final String LIFT_DRIVE_AUTO = "Lift and Drive Auto";	
 	private static final String PULL_DRIVE_AUTO = "Pull and Drive Auto";
-
+*/
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Shooter shooter = new Shooter();
 	public static final IntakeMech intakeMech = new IntakeMech();
@@ -59,7 +60,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	//visionTrack.streamCam(); <-- Zak Remove
+    	visionTrack.streamCam();
     	
 		oi = new OI();
 		SmartDashboard.putData(driveTrain);
@@ -74,9 +75,9 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         chooser.addDefault(DEFAULT_AUTO, new DefaultAuto());
         chooser.addDefault(DISABLE_AUTO, null);
-        //chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
-        chooser.addObject(PULL_DRIVE_AUTO, new PullAndDrive());
-        chooser.addObject(PULL_DRIVE_AUTO, new DrivePortcullis());
+        /*chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
+        chooser.addObject(PULL_DRIVE_AUTO, new PullAndDrive());*/
+        chooser.addObject(PORTCULLIS_AUTO, new DrivePortcullis());
         SmartDashboard.putData(AUTO_CHOOSER, chooser);
     }
 	
@@ -106,24 +107,6 @@ public class Robot extends IterativeRobot {
     	//	Beginning of Autonomous Mode Code	
     	autonomousCmd = (Command) chooser.getSelected();
         
-		String autoSelected = SmartDashboard.getString(AUTO_CHOOSER, DEFAULT_AUTO);
-		switch(autoSelected) {
-		case PULL_DRIVE_AUTO:
-			autonomousCmd = new PullAndDrive();
-			break;
-		/*case LIFT_DRIVE_AUTO:
-			autonomousCmd = new LiftAndDrive();
-			break;*/
-		case DISABLE_AUTO:
-			autonomousCmd = null;
-			break;
-		case DEFAULT_AUTO:
-		default:
-			autonomousCmd = new DefaultAuto();
-			break;
-		} 	
-    	
-    	
     	// add command and schedule autonomous
     	if (autonomousCmd != null) {
 	    	autonomousCmd.start();
