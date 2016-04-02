@@ -31,7 +31,7 @@ public class PullAndDrive extends CommandGroup {
     	
     	addSequential(new DriveUltra(15.0)); // 15 in. tolerance
     	addSequential(new Rotate(500)); // 500 ms tolerance
-    	addSequential(new ShootAuto());
+    	
 
         // To run multiple commands at the same time,
         // use addParallel()

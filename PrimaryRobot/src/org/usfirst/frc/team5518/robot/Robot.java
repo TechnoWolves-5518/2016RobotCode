@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	//visionTrack.streamCam(); <-- Zak Remove
+    	//visionTrack.streamCam(); 
     	
 		oi = new OI();
 		SmartDashboard.putData(driveTrain);
@@ -107,24 +107,6 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	//	Beginning of Autonomous Mode Code	
     	autonomousCmd = (Command) chooser.getSelected();
-        
-		String autoSelected = SmartDashboard.getString(AUTO_CHOOSER, DEFAULT_AUTO);
-		switch(autoSelected) {
-		case PULL_DRIVE_AUTO:
-			autonomousCmd = new PullAndDrive();
-			break;
-		/*case LIFT_DRIVE_AUTO:
-			autonomousCmd = new LiftAndDrive();
-			break;*/
-		case DISABLE_AUTO:
-			autonomousCmd = null;
-			break;
-		case DEFAULT_AUTO:
-		default:
-			autonomousCmd = new DefaultAuto();
-			break;
-		} 	
-    	
     	
     	// add command and schedule autonomous
     	if (autonomousCmd != null) {
