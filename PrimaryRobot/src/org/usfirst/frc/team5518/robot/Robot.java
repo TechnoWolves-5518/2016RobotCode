@@ -40,6 +40,7 @@ public class Robot extends IterativeRobot {
 	private static final String DISABLE_AUTO = "Disable Auto";
 	//private static final String LIFT_DRIVE_AUTO = "Lift and Drive Auto";	
 	private static final String PULL_DRIVE_AUTO = "Pull and Drive Auto";
+	private static final String PORTACULLIS_DRIVE_AUTO = "Portacullis and Drive Auto";
 
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Shooter shooter = new Shooter();
@@ -77,7 +78,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault(DISABLE_AUTO, null);
         //chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
         chooser.addObject(PULL_DRIVE_AUTO, new PullAndDrive());
-        chooser.addObject(PULL_DRIVE_AUTO, new DrivePortacullis());
+        chooser.addObject(PORTACULLIS_DRIVE_AUTO, new DrivePortacullis());
         SmartDashboard.putData(AUTO_CHOOSER, chooser);
     }
 	
