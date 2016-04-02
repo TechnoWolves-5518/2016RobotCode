@@ -3,8 +3,10 @@ package org.usfirst.frc.team5518.robot.commands;
 import org.usfirst.frc.team5518.robot.commands.autonomous.DriveUltra;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveDefense;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveFixed;
+import org.usfirst.frc.team5518.robot.commands.hooker.CloseCylinders;
 import org.usfirst.frc.team5518.robot.commands.hooker.OpenCylinders;
 import org.usfirst.frc.team5518.robot.commands.intakemech.PickUpBall;
+import org.usfirst.frc.team5518.robot.commands.shooter.ShootAuto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -19,12 +21,17 @@ public class DrivePortcullis extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
     	
-    	addParallel(new OpenCylinders());
     	addParallel(new PickUpBall());
     	
     	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
+    	
+    	addSequential(new OpenCylinders()); // extend arms out
+    	addSequential(new CloseCylinders()); // close arms
+    	
     	addSequential(new DriveDefense(1500)); // 1500 ms tolerance
     	addSequential(new DriveUltra(15.0)); // 15 in. tolerance
+    	
+    	addSequential(new ShootAuto());
 
         // To run multiple commands at the same time,
         // use addParallel()
