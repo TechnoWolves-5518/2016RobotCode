@@ -1,5 +1,15 @@
 <xml version="1.0">
 <dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.MJPGStreamerViewerExtension">
+		<location x="699" y="155"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.MJPGStreamerViewerExtension">
+		<location x="-259" y="66"/>
+		<width>673</width>
+		<height>342</height>
+		<property name="Robot IP Address or mDNS name" value="localhost"/>
+		<property name="port" value="8080"/>
+	</static-widget>
 	<widget field="IntakeMech" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="1643" y="820"/>
 		<height>26</height>

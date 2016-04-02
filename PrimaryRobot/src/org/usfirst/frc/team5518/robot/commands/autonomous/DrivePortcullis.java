@@ -1,40 +1,34 @@
 package org.usfirst.frc.team5518.robot.commands.autonomous;
 
-import org.usfirst.frc.team5518.robot.commands.armlifter.LowerArms;
-import org.usfirst.frc.team5518.robot.commands.armlifter.RaiseArms;
+import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveDefense;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveFixed;
-import org.usfirst.frc.team5518.robot.commands.drivetrain.Rotate;
-import org.usfirst.frc.team5518.robot.commands.intakemech.PickUpBall;
-import org.usfirst.frc.team5518.robot.commands.shooter.ShootAuto;
 import org.usfirst.frc.team5518.robot.commands.hooker.OpenCylinders;
+import org.usfirst.frc.team5518.robot.commands.intakemech.PickUpBall;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class DrivePortacullis extends CommandGroup {
+public class DrivePortcullis extends CommandGroup {
     
-    public  DrivePortacullis() {
+    public  DrivePortcullis() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
     	
     	addParallel(new PickUpBall());
+    	
     	//addSequential(new RaiseArms());
+    	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	addSequential(new OpenCylinders());
-    	
-    	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
-    	
-    	// lower arms and drive in parallel
-    	//addParallel(new LowerArms());
-    	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
-    	
+    	addSequential(new DriveDefense(1500)); // 1500 ms tolerance
     	addSequential(new DriveUltra(15.0)); // 15 in. tolerance
-    	addSequential(new Rotate(500)); // 500 ms tolerance
-    	//addSequential(new ShootAuto());
-
+    	
+    	//Old Lower Arm Code
+    	//addParallel(new LowerArms());
+    	
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
