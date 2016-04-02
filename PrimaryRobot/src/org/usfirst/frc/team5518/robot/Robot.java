@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 	public static final ArmLifter armLifter = new ArmLifter();
 	public static final Hooker hooker = new Hooker();
 	public static final Sensor sensor = new Sensor();
-	public static final VisionTrack visionTrack = new VisionTrack();
+	public static final VisionTrack visionTrack = new VisionTrack();  
 	
 	public static OI oi;
 	
@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	visionTrack.streamCam();
+    	//visionTrack.streamCam(); <-- Zak Remove
     	
 		oi = new OI();
 		SmartDashboard.putData(driveTrain);
@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(armLifter);
 		SmartDashboard.putData(hooker);
 		SmartDashboard.putData(sensor);
-		SmartDashboard.putData(visionTrack);
+		//SmartDashboard.putData(visionTrack);		<-- Zak
 		
 		//	Beginning of Autonomous Mode Code	
         chooser = new SendableChooser();

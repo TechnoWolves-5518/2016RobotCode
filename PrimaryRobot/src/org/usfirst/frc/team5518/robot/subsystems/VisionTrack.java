@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  *
  */
 public class VisionTrack extends Subsystem {
-	
+	/*
 	private static final int CAM_WIDTH = 640;
 	private static final int CAM_HEIGHT = 480;
 	private static final int MAX_FPS = 15; // The maximum fps for all of the cameras
@@ -29,27 +29,27 @@ public class VisionTrack extends Subsystem {
 	private static final String[] CAM_NAMES = new String[] {
 			"cam0", "cam1"
 	};
-	
+	*/
 	/*private static final double MARGIN_X = CAM_WIDTH*0.05;
 	private static final double MARGIN_Y = CAM_HEIGHT*0.05;*/
 	
-	private static final double[] defaultVals = new double[0];
+	//private static final double[] defaultVals = new double[0];
 	
-	private Process process;
-	private Process process2;
-	private NetworkTable table;
+	//private Process process;
+	//private Process process2;
+	//private NetworkTable table;
 	
-	private ArrayList<USBCamera> cams; // The list of all attached cameras
-	private USBCamera cam; // The current camera we are viewing.
-	private int currCam; // The index of the current camera we are looking at
-	private Image frame; // The image to push to the CameraServer
+	//private ArrayList<USBCamera> cams; // The list of all attached cameras
+	//private USBCamera cam; // The current camera we are viewing.
+	//private int currCam; // The index of the current camera we are looking at
+	//private Image frame; // The image to push to the CameraServer
 	
-	public boolean btnState = true;
-	public boolean blnAlready = false;
+	//public boolean btnState = true;
+	//public boolean blnAlready = false;
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new StreamCam());
+        //setDefaultCommand(new StreamCam());
     }
     
     /**
@@ -58,8 +58,8 @@ public class VisionTrack extends Subsystem {
      * 
      * @return Return current system time in milliseconds.
      */
-     public long init() {
-    	 cams = new ArrayList<USBCamera>();
+     //public long init() {
+    	/* cams = new ArrayList<USBCamera>();
     	 currCam = 0;
     	 
     	 frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
@@ -73,27 +73,28 @@ public class VisionTrack extends Subsystem {
     	 cam.openCamera();
     	 cam.startCapture();
     	 
-    	 return System.currentTimeMillis();
-     }
+    	 return System.currentTimeMillis(); */
+     //}
      
      /**
       * Runs a script to start mjpg-streamer at
       * http://roborio-5518-frc.local:1180/?action=stream
       */
      public void streamCam() {
-    	 try {
+    	/* try {
  			process = Runtime.getRuntime().exec("sh /home/admin/mjpg.sh");
  			process2 = Runtime.getRuntime().exec("sh /home/admin/mjpg2.sh");
  		} catch (IOException e) {
+ 			
  			//e.printStackTrace();
- 		}
+ 		}*/
      }
      
      /**
       * 
       */
      public void streamCamNi() {
-    	cams.get(currCam).getImage(frame);
+    	/*cams.get(currCam).getImage(frame);
      	CameraServer.getInstance().setImage(frame);
     	 
      	if (btnState)
@@ -101,14 +102,14 @@ public class VisionTrack extends Subsystem {
      	else
      		setCam(0);
     	 
-    	 toggleCtrl(RobotMap.XBOX_START);
+    	 toggleCtrl(RobotMap.XBOX_START);*/
      }
      
      /**
       * 
       * @param btnNum
       */
-     private void toggleCtrl(int btnNum){
+    /* private void toggleCtrl(int btnNum){
      	boolean btn = Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
      			btnNum);
      	
@@ -120,15 +121,15 @@ public class VisionTrack extends Subsystem {
  	        	btnState = true;
  	    } else if (!btn) {
  	    		blnAlready = false;
- 	    }	
-     }
+ 	    }	*/
+     //}
      
      /**
       * Change output camera
       * @param cam Index of camera in ArrayList
       */
-     private void setCam(int camNum) {
-     	if (camNum != currCam) {
+     /*private void setCam(int camNum) {
+     	/*if (camNum != currCam) {
  			new Runnable() {
  				public void run() {
  					try {
@@ -145,7 +146,7 @@ public class VisionTrack extends Subsystem {
  				}
  			}.run();
      	}
-     }
+     }*/
      
      /**
       * 
@@ -164,20 +165,20 @@ public class VisionTrack extends Subsystem {
       * 
       */
      public void end() {
-    	 process.destroy();
-    	 process2.destroy();
+    	 //process.destroy();
+    	 //process2.destroy();
      }
      
      /**
       * Adds the camera to our list to switch between and sets the FPS max
       * @param camName The name of the camera
       */
-     private void addCamera(String camName){
-     	USBCamera temp = new USBCamera(camName);
+     /*private void addCamera(String camName){
+     	/*USBCamera temp = new USBCamera(camName);
      	//temp.setFPS(MAX_FPS);
      	cams.add(temp);
      	temp = null;
-     }
+     }*/
      
      /**
       * 
