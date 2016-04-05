@@ -48,13 +48,14 @@ public class IntakeMech extends Subsystem {
      */
     public void intake(double speed) {
     	// Set intake mtr to full reverse if LB pressed
-    	if (Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
-    			RobotMap.XBOX_LBUMBER)) {
-    		intakeMtr.set(FIXED_SPEED);
+    	if (btnState) {
+    		intakeMtr.set(speed);
     	// else intake mtr to variable speed from LT
     	} else {
     		intakeMtr.set(-speed);
     	}
+    	
+    	toggleCtrl(RobotMap.XBOX_LBUMBER);
     }
     
     
