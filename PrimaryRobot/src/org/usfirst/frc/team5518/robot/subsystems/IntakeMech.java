@@ -57,6 +57,7 @@ public class IntakeMech extends Subsystem {
     	}
     }
     
+    
     /**
      * 
      * @param btnNum
@@ -74,6 +75,7 @@ public class IntakeMech extends Subsystem {
 	    } else if (!btn) {
 	    		blnAlready = false;
 	    }	
+    	
     }
  
     
