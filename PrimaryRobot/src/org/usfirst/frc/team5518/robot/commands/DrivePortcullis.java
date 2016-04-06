@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5518.robot.commands;
 
-import org.usfirst.frc.team5518.robot.commands.autonomous.DriveUltra;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveDefense;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveFixed;
 import org.usfirst.frc.team5518.robot.commands.hooker.CloseCylinders;
@@ -29,7 +28,7 @@ public class DrivePortcullis extends CommandGroup {
     	addSequential(new CloseCylinders()); // close arms
     	
     	addSequential(new DriveDefense(1500)); // 1500 ms tolerance
-    	addSequential(new DriveUltra(15.0)); // 15 in. tolerance
+    	addSequential(new DriveFixed(2000)); // 2000 ms tolerance
     	
     	addSequential(new ShootAuto());
 

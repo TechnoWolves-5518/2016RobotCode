@@ -26,7 +26,7 @@ public class LiftAndDrive extends CommandGroup {
     	addParallel(new RaiseArms());
     	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	
-    	addSequential(new DriveUltra(5.0)); // 5 in. tolerance
+    	addSequential(new DriveFixed(1000)); // 1000 ms tolerance
     	addSequential(new Rotate(500)); // 500 ms tolerance
     	addSequential(new ShootAuto());
 

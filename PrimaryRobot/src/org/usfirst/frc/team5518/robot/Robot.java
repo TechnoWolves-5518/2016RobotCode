@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
 	public static final IntakeMech intakeMech = new IntakeMech();
 	public static final ArmLifter armLifter = new ArmLifter();
 	public static final Hooker hooker = new Hooker();
-	public static final Sensor sensor = new Sensor();
+	//public static final Sensor sensor = new Sensor();
 	public static final VisionTrack visionTrack = new VisionTrack();  
 	
 	public static OI oi;
@@ -68,8 +68,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(intakeMech);
 		SmartDashboard.putData(armLifter);
 		SmartDashboard.putData(hooker);
-		SmartDashboard.putData(sensor);
-		//SmartDashboard.putData(visionTrack);		<-- Zak
+		//SmartDashboard.putData(sensor);
+		//SmartDashboard.putData(visionTrack);
 		
 		//	Beginning of Autonomous Mode Code	
         chooser = new SendableChooser();
@@ -119,12 +119,6 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        
-        new Runnable() {
-			public void run() {
-		        sensor.log();
-			}
-		}.run();
     }
 
     public void teleopInit() {
@@ -142,7 +136,7 @@ public class Robot extends IterativeRobot {
 				driveTrain.log();
 		        shooter.log();
 		        //armLifter.log();
-		        sensor.log();
+		        //sensor.log();
 				intakeMech.log();
 			}
 		}.run();

@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class IntakeMech extends Subsystem {
 	
 	public static final String SUBSYSTEM = "IntakeMech";
-	public static final double FIXED_SPEED = 1.0;
+	public static final double FIXED_SPEED = -1.0;
 	
 	VictorSP intakeMtr;
 	
@@ -29,7 +29,6 @@ public class IntakeMech extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new IntakeMtr());
-        
     }
     
     /**
@@ -48,14 +47,13 @@ public class IntakeMech extends Subsystem {
      */
     public void intake(double speed) {
     	// Set intake mtr to full reverse if LB pressed
-    	if (btnState) {
-    		intakeMtr.set(speed);
+    	if (Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
+    			RobotMap.XBOX_LBUMBER)) {
+    		intakeMtr.set(FIXED_SPEED);
     	// else intake mtr to variable speed from LT
     	} else {
-    		intakeMtr.set(-speed);
+    		intakeMtr.set(speed);
     	}
-    	
-    	toggleCtrl(RobotMap.XBOX_LBUMBER);
     }
     
     
