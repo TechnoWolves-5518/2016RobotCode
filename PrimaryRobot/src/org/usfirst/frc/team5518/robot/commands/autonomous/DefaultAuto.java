@@ -2,7 +2,6 @@ package org.usfirst.frc.team5518.robot.commands.autonomous;
 
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveDefense;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveFixed;
-import org.usfirst.frc.team5518.robot.commands.drivetrain.Rotate;
 import org.usfirst.frc.team5518.robot.commands.intakemech.PickUpBall;
 import org.usfirst.frc.team5518.robot.commands.shooter.ShootAuto;
 
@@ -23,7 +22,7 @@ public class DefaultAuto extends CommandGroup {
     	
     	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	addSequential(new DriveDefense(1500)); // 1500 ms tolerance
-    	addSequential(new DriveUltra(15.0)); // 15 in. tolerance
+    	addSequential(new DriveFixed(2000)); // 2000 ms tolerance
     	//addSequential(new Rotate(500)); // 500 ms tolerance
     	
     	addSequential(new ShootAuto());

@@ -1,14 +1,10 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
 import org.usfirst.frc.team5518.robot.RobotMap;
-import org.usfirst.frc.team5518.robot.commands.sensor.SensorOut;
 
-import edu.wpi.first.wpilibj.ADXL362;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogOutput;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -66,7 +62,7 @@ public class Sensor extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-    	setDefaultCommand(new SensorOut());
+    	//setDefaultCommand(new SensorOut());
     }
     
     /**
