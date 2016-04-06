@@ -1,5 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Shooter" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="27"/>
+	</widget>
+	<widget field="IntakeMech" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+		<location x="0" y="0"/>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.MJPGStreamerViewerExtension">
 		<location x="699" y="155"/>
 	</static-widget>
@@ -10,10 +16,6 @@
 		<property name="Robot IP Address or mDNS name" value="localhost"/>
 		<property name="port" value="8080"/>
 	</static-widget>
-	<widget field="IntakeMech" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1643" y="820"/>
-		<height>26</height>
-	</widget>
 	<widget field="IntakeMech blnAlready: " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="1563" y="850"/>
 	</widget>
@@ -31,9 +33,6 @@
 	</widget>
 	<widget field="Sensor Forward Ultrasonic: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="125" y="824"/>
-	</widget>
-	<widget field="Shooter" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1670" y="533"/>
 	</widget>
 	<widget field="DriveTrain RR Motor: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="1576" y="753"/>
