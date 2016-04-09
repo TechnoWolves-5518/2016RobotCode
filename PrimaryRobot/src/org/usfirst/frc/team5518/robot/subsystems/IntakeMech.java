@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class IntakeMech extends Subsystem {
 	
 	public static final String SUBSYSTEM = "IntakeMech";
-	public static final double FIXED_SPEED = 1.0;
+	public static final double FIXED_SPEED = 0.25;
 	
 	VictorSP intakeMtr;
 	
@@ -23,7 +23,8 @@ public class IntakeMech extends Subsystem {
 	
 	public IntakeMech() {
     	intakeMtr = new VictorSP(RobotMap.INTAKE_MTR);
-    	
+    	intakeMtr.enableDeadbandElimination(true);
+    	intakeMtr.setExpiration(0.5);
 	}
     
     public void initDefaultCommand() {
