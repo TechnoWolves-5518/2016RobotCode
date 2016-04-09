@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Shooter extends Subsystem {
 	
 	public static final String SUBSYSTEM = "Shooter";
-	public static final double FIXED_SPEED = 0.75;
+	public static final double FIXED_SPEED = 0.25;
 	
 	VictorSP btmShootMtr;
 	VictorSP topShootMtr;
