@@ -1,17 +1,12 @@
 
 package org.usfirst.frc.team5518.robot;
 
-import org.usfirst.frc.team5518.robot.commands.DrivePortcullis;
 import org.usfirst.frc.team5518.robot.commands.autonomous.DefaultAuto;
-import org.usfirst.frc.team5518.robot.commands.autonomous.PullAndDrive;
+import org.usfirst.frc.team5518.robot.commands.autonomous.DrivePortcullis;
 import org.usfirst.frc.team5518.robot.subsystems.ArmLifter;
 import org.usfirst.frc.team5518.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5518.robot.subsystems.Hooker;
 import org.usfirst.frc.team5518.robot.subsystems.IntakeMech;
-/*	Beginning of Autonomous Mode Code	
-import org.usfirst.frc.team5518.robot.commands.autonomous.Autonomous;
-*/
-import org.usfirst.frc.team5518.robot.subsystems.Sensor;
 import org.usfirst.frc.team5518.robot.subsystems.Shooter;
 import org.usfirst.frc.team5518.robot.subsystems.VisionTrack;
 
@@ -74,7 +69,7 @@ public class Robot extends IterativeRobot {
 		//	Beginning of Autonomous Mode Code	
         chooser = new SendableChooser();
         chooser.addDefault(DEFAULT_AUTO, new DefaultAuto());
-        chooser.addDefault(DISABLE_AUTO, null);
+        chooser.addObject(DISABLE_AUTO, null);
         /*chooser.addObject(LIFT_DRIVE_AUTO, new LiftAndDrive());
         chooser.addObject(PULL_DRIVE_AUTO, new PullAndDrive());*/
         chooser.addObject(PORTCULLIS_AUTO, new DrivePortcullis());
