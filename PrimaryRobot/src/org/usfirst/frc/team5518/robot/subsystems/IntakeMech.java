@@ -23,7 +23,8 @@ public class IntakeMech extends Subsystem {
 	
 	public IntakeMech() {
     	intakeMtr = new VictorSP(RobotMap.INTAKE_MTR);
-    	
+    	intakeMtr.enableDeadbandElimination(true);
+    	intakeMtr.setExpiration(0.5);
 	}
     
     public void initDefaultCommand() {
