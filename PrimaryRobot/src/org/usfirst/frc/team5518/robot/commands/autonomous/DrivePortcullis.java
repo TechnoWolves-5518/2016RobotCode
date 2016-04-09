@@ -2,6 +2,7 @@ package org.usfirst.frc.team5518.robot.commands.autonomous;
 
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveDefense;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.DriveFixed;
+import org.usfirst.frc.team5518.robot.commands.hooker.CloseCylinders;
 import org.usfirst.frc.team5518.robot.commands.hooker.OpenCylinders;
 import org.usfirst.frc.team5518.robot.commands.intakemech.PickUpBall;
 
@@ -19,10 +20,11 @@ public class DrivePortcullis extends CommandGroup {
         // these will run in order.
     	
     	addParallel(new PickUpBall());
+    	addSequential(new CloseCylinders());
+    	addSequential(new OpenCylinders());
     	
     	//addSequential(new RaiseArms());
-    	addSequential(new OpenCylinders());
-    	addSequential(new DriveFixed(1500)); // 1500 ms toleranc
+    	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	addSequential(new DriveDefense(1500)); // 1500 ms tolerance
     	addSequential(new DriveFixed(2000)); // 2000 ms tolerance
     	

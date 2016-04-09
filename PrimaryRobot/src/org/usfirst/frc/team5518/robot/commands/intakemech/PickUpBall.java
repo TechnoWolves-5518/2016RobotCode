@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class PickUpBall extends Command {
 	
-	private static final double TOL_MILLISEC = 1000;
+	private static final double TOL_MILLISEC = 500;
 	private double time = 0;
 
     public PickUpBall() {
