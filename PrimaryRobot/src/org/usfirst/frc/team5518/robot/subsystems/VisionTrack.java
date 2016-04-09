@@ -171,13 +171,13 @@ public class VisionTrack extends Subsystem {
       * 
       */
      public void end() {
-    	 try {
-			Runtime.getRuntime().exec("pkill -f './mjpg-streamer'");
-			process.destroy();
-	    	 process2.destroy();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//    	 try {
+//    		 Runtime.getRuntime().exec("pkill -f './mjpg-streamer'");
+		process.destroy();
+	    process2.destroy();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
      }
      
      /**
