@@ -21,11 +21,9 @@ public class DrivePortcullis extends CommandGroup {
     	
     	//addParallel(new PickUpBall());
 //    	addSequential(new CloseCylinders());
-    	
-    	//addSequential(new RaiseArms());
+    	addSequential(new OpenCylinders());
     	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	addSequential(new DriveDefense(1500)); // 1500 ms tolerance
-    	addSequential(new OpenCylinders());
     	addSequential(new DriveFixed(2000)); // 2000 ms tolerance
     	
     	//Old Lower Arm Code
