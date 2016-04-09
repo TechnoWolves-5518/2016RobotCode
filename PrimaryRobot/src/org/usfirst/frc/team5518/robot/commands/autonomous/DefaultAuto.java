@@ -18,14 +18,14 @@ public class DefaultAuto extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
     	
-    	addSequential(new PickUpBall());
+    	addParallel(new PickUpBall());
     	
     	addSequential(new DriveFixed(1500)); // 1500 ms tolerance
     	addSequential(new DriveDefense(1500)); // 1500 ms tolerance
     	addSequential(new DriveFixed(2000)); // 2000 ms tolerance
     	//addSequential(new Rotate(500)); // 500 ms tolerance
     	
-    	addSequential(new ShootAuto());
+    	//addSequential(new ShootAuto());
 
         // To run multiple commands at the same time,
         // use addParallel()
