@@ -1,10 +1,10 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Shooter" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
-		<location x="0" y="27"/>
-	</widget>
-	<widget field="IntakeMech" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+	<widget field="IntakeMech" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="0"/>
+	</widget>
+	<widget field="Shooter" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="27"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.MJPGStreamerViewerExtension">
 		<location x="699" y="155"/>
