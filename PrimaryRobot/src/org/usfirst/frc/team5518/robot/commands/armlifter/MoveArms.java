@@ -12,24 +12,24 @@ public class MoveArms extends Command {
 
     public MoveArms() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.armLifter);
+        //requires(Robot.armLifter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.armLifter.init();
+    	//Robot.armLifter.init();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.armLifter.moveArms(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),
+    	/*Robot.armLifter.moveArms(Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_LSTICKY),
     			Robot.oi.getAxis(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_RSTICKY));
-    	Robot.armLifter.toggleCtrl(RobotMap.XBOX_START);
+    	Robot.armLifter.toggleCtrl(RobotMap.XBOX_START);*/
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

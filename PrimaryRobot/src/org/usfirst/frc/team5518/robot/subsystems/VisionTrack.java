@@ -1,19 +1,10 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import org.usfirst.frc.team5518.robot.Robot;
-import org.usfirst.frc.team5518.robot.RobotMap;
 import org.usfirst.frc.team5518.robot.commands.visiontrack.StreamCam;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.Image;
-
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  *
@@ -42,13 +33,7 @@ public class VisionTrack extends Subsystem {
 	/*private ArrayList<USBCamera> cams; // The list of all attached cameras
 	private USBCamera cam; // The current camera we are viewing.
 	private int currCam; // The index of the current camera we are looking at
-	private Image frame; // The image to push to the CameraServer
-*/
-	public boolean btnState = true;
-	public boolean blnAlready = false;
-	
-	//Variables to see if camera is already running or not
-	private boolean blnAlrdyRn = false;
+	private Image frame; // The image to push to the CameraServer*/
 	
     public void initDefaultCommand() {
         //Set the default command for a subsystem here.
@@ -99,42 +84,28 @@ public class VisionTrack extends Subsystem {
      /**
       * 
       */
-     public void streamCamNi() {
-    	/*cams.get(currCam).getImage(frame);
-     	CameraServer.getInstance().setImage(frame);
+     public void log() {
     	 
-     	if (btnState)
-     		setCam(1);
-     	else
-     		setCam(0);
-    	 
-    	 toggleCtrl(RobotMap.XBOX_START);*/
      }
      
      /**
       * 
-      * @param btnNum
       */
-     private void toggleCtrl(int btnNum){
-     	boolean btn = Robot.oi.getBtn(RobotMap.JOYSTICK_ONE,
-     			btnNum);
-     	
-     	if (!blnAlready && btn) {
-     		blnAlready = true;
-     		if (btnState)
-         		btnState = false;
-         	else
- 	        	btnState = true;
- 	    } else if (!btn) {
- 	    		blnAlready = false;
- 	    }
+     public void end() {
+//    	 try {
+//    		 Runtime.getRuntime().exec("pkill -f './mjpg-streamer'");
+			process.destroy();
+		    process2.destroy();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
      }
      
      /**
       * Change output camera
       * @param cam Index of camera in ArrayList
       */
-     private void setCam(int camNum) {
+     //private void setCam(int camNum) {
      	/*if (camNum != currCam) {
  			new Runnable() {
  				public void run() {
@@ -152,33 +123,7 @@ public class VisionTrack extends Subsystem {
  				}
  			}.run();
      	}*/
-     }
-     
-     /**
-      * 
-      */
-     public void visionAuto() {
-     }
-     
-     /**
-      * 
-      */
-     public void log() {
-    	 
-     }
-     
-     /**
-      * 
-      */
-     public void end() {
-//    	 try {
-//    		 Runtime.getRuntime().exec("pkill -f './mjpg-streamer'");
-		process.destroy();
-	    process2.destroy();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-     }
+     //}
      
      /**
       * Adds the camera to our list to switch between and sets the FPS max

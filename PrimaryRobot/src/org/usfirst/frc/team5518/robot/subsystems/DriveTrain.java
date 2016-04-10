@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5518.robot.subsystems;
 
-import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
 import org.usfirst.frc.team5518.robot.commands.drivetrain.FineWheelCtrl;
 
@@ -17,37 +16,30 @@ public class DriveTrain extends Subsystem {
 	
 	public static final String SUBSYSTEM = "DriveTrain";
 	
+	//Defining Objects
 	RobotDrive robotDrive;
 	VictorSP flMotor;
 	VictorSP rlMotor;
 	VictorSP frMotor;
 	VictorSP rrMotor;
 	
-	public boolean btnInvertState = true;
-	public boolean blnAlready = false;
-	
 	public DriveTrain() {
+		//Init motors and maping
 		flMotor = new VictorSP(RobotMap.FRONT_LEFT_MTR);
 		rlMotor = new VictorSP(RobotMap.REAR_LEFT_MTR);
 		frMotor = new VictorSP(RobotMap.FRONT_RIGHT_MTR);
 		rrMotor = new VictorSP(RobotMap.REAR_RIGHT_MTR);
 		
+		//Make sure that the robot can see the Joysticks as being at zero
 		flMotor.enableDeadbandElimination(true);
 		rlMotor.enableDeadbandElimination(true);
 		frMotor.enableDeadbandElimination(true);
 		rrMotor.enableDeadbandElimination(true);
 		
-		flMotor.setSafetyEnabled(true);
-		rlMotor.setSafetyEnabled(true);
-		frMotor.setSafetyEnabled(true);
-		rrMotor.setSafetyEnabled(true);
-		
-		flMotor.setExpiration(0.5);
-		rlMotor.setExpiration(0.5);
-		frMotor.setExpiration(0.5);
-		rrMotor.setExpiration(0.5);
-		
+		//Define robot drive
 		robotDrive = new RobotDrive(flMotor, rlMotor, frMotor, rrMotor);
+		robotDrive.setSafetyEnabled(true);
+		robotDrive.setExpiration(0.5);
 	}
     
     public void initDefaultCommand() {
@@ -71,11 +63,6 @@ public class DriveTrain extends Subsystem {
      */
     public void drive(double[] axis, boolean fineCtrl) {
     	robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
-    	
-    	/*if (btnInvertState)
-    		robotDrive.arcadeDrive(axis[0], axis[1], fineCtrl);
-    	else
-    		invert(axis, fineCtrl);*/
     }
     
     /**
@@ -85,18 +72,6 @@ public class DriveTrain extends Subsystem {
      */
     public void invert(double[] axis, boolean fineCtrl) {
     	robotDrive.arcadeDrive(-axis[0], -axis[1], fineCtrl);
-    }
-    
-    public void toggleInvert() {
-    	if (blnAlready == false && (Robot.oi.getBtn(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_XBUTTON))) {
-    		blnAlready = true;
-    		if (btnInvertState)
-    			btnInvertState = false;
-    		else
-        		btnInvertState = true;
-	    } else if (!Robot.oi.getBtn(RobotMap.JOYSTICK_ONE, RobotMap.XBOX_XBUTTON)) {
-	    		blnAlready = false;
-	    }
     }
     
     /**

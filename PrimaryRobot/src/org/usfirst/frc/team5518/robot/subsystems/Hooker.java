@@ -26,7 +26,7 @@ public class Hooker extends Subsystem {
     	solenoid = new DoubleSolenoid(RobotMap.SOLENOID_FORWARD,
     			RobotMap.SOLENOID_REVERSE);
     	
-    	solenoid.set(Value.kOff);
+    	init();
 	}
 
     public void initDefaultCommand() {

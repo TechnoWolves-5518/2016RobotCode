@@ -11,17 +11,17 @@ public class RaiseArms extends Command {
 	
     public RaiseArms() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.armLifter);
+        //requires(Robot.armLifter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.armLifter.init();
+    	//Robot.armLifter.init();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.armLifter.moveArms(-0.50, -0.50); // move both arms up at same speed
+    	//Robot.armLifter.moveArms(-0.50, -0.50); // move both arms up at same speed
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -29,10 +29,10 @@ public class RaiseArms extends Command {
     	/*boolean leftArm = Robot.armLifter.getLeftPot()>=
     			Robot.armLifter.ARM_LEFT_MAX;*/
     	
-    	boolean leftArm = Robot.armLifter.isLeftArmExceeded();
-    	boolean rightArm = Robot.armLifter.isRightArmExceeded();
+    	/*boolean leftArm = Robot.armLifter.isLeftArmExceeded();
+    	boolean rightArm = Robot.armLifter.isRightArmExceeded();*/
     	
-        return leftArm || rightArm;
+        return true; //leftArm || rightArm;
     }
 
     // Called once after isFinished returns true
