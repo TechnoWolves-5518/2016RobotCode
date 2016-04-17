@@ -39,8 +39,8 @@ public class RobotMap {
     public static int REAR_RIGHT_MTR = 3;
     
     // Special functions (PWM)
-    public static int BTM_SHOOT_MTR = 4;
-    public static int TOP_SHOOT_MTR = 0;
+    public static int BTM_SHOOT_MTR = 8; // 4 -> 0
+    public static int TOP_SHOOT_MTR = 4; // 0 -> 4
     public static int INTAKE_MTR = 7;
     
     public static int ARM_LEFT_MTR = 8;

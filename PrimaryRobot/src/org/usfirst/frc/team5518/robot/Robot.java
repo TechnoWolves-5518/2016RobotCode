@@ -3,7 +3,6 @@ package org.usfirst.frc.team5518.robot;
 
 import org.usfirst.frc.team5518.robot.commands.autonomous.DefaultAuto;
 import org.usfirst.frc.team5518.robot.commands.autonomous.DrivePortcullis;
-import org.usfirst.frc.team5518.robot.subsystems.ArmLifter;
 import org.usfirst.frc.team5518.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5518.robot.subsystems.Hooker;
 import org.usfirst.frc.team5518.robot.subsystems.IntakeMech;
@@ -39,7 +38,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Shooter shooter = new Shooter();
 	public static final IntakeMech intakeMech = new IntakeMech();
-	public static final ArmLifter armLifter = new ArmLifter();
+	//public static final ArmLifter armLifter = new ArmLifter();
 	public static final Hooker hooker = new Hooker();
 	//public static final Sensor sensor = new Sensor();
 	public static final VisionTrack visionTrack = new VisionTrack();  
@@ -61,7 +60,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(shooter);
 		SmartDashboard.putData(intakeMech);
-		SmartDashboard.putData(armLifter);
+		//SmartDashboard.putData(armLifter);
 		SmartDashboard.putData(hooker);
 		//SmartDashboard.putData(sensor);
 		//SmartDashboard.putData(visionTrack);
@@ -126,7 +125,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        new Runnable() {
+        /*new Runnable() {
 			public void run() {
 				driveTrain.log();
 		        shooter.log();
@@ -134,7 +133,7 @@ public class Robot extends IterativeRobot {
 		        //sensor.log();
 				intakeMech.log();
 			}
-		}.run();
+		}.run();*/
     }
     
     /**
