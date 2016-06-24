@@ -55,8 +55,8 @@ public class Shooter extends Subsystem {
     		topShootMtr.set(FIXED_SPEED);
     		// else shooter motors to variable speed from RT
     	} else {
-    		btmShootMtr.set(speeds[0]);
-    		topShootMtr.set(speeds[1]);
+    		btmShootMtr.set(speeds[0]*0.8);
+    		topShootMtr.set(speeds[1]*0.8);
     	}
     }
 
