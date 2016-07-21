@@ -114,7 +114,7 @@ public class OI {
      * @param type
      * @param value
      */
-    public void setRumble(Joystick.RumbleType type, float value) {
+    public void setAllRumble(Joystick.RumbleType type, float value) {
     	for (Joystick stick : ctrlr) {
     		stick.setRumble(type, value);
     	}
