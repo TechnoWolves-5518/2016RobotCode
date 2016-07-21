@@ -4,6 +4,7 @@ import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
 import org.usfirst.frc.team5518.robot.commands.shooter.Shoot;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,13 +20,14 @@ public class Shooter extends Subsystem {
 	VictorSP btmShootMtr;
 	VictorSP topShootMtr;
 	
+	Preferences prefs;
+	
 	private boolean btnState = true;
 	private boolean blnAlready = false;
 		
 	public Shooter() {
 		btmShootMtr = new VictorSP(RobotMap.BTM_SHOOT_MTR);
     	topShootMtr = new VictorSP(RobotMap.TOP_SHOOT_MTR);
-    	
     	btmShootMtr.setInverted(true);
 	}
     
@@ -41,6 +43,7 @@ public class Shooter extends Subsystem {
      * @return Return current system time in milliseconds.
      */
     public long init() {
+    	prefs = Preferences.getInstance();
     	return System.currentTimeMillis();
     }
     
@@ -55,8 +58,10 @@ public class Shooter extends Subsystem {
     		topShootMtr.set(FIXED_SPEED);
     		// else shooter motors to variable speed from RT
     	} else {
-    		btmShootMtr.set(speeds[0]);
-    		topShootMtr.set(speeds[1]);
+    		
+    		double limit = prefs.getDouble("shooter", 0.75);
+    		btmShootMtr.set(speeds[0]*limit);
+    		topShootMtr.set(speeds[1]*limit);
     	}
     }
 
