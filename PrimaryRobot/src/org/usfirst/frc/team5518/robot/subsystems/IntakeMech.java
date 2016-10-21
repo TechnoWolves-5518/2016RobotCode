@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class IntakeMech extends Subsystem {
 	
 	public static final String SUBSYSTEM = "IntakeMech";
-	public static final double FIXED_SPEED = 1.0;
+	public static final double FIXED_SPEED = 0.4;
 	
 	VictorSP intakeMtr;
 	
